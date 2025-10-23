@@ -48,6 +48,9 @@
   height: 100%;
 }
 
+#story-content{
+}
+
 #story-content, .story-content {
   position: relative;
 }

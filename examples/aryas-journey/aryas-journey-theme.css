@@ -17,17 +17,14 @@ body {
   min-height: 100vh;
   background-color: var(--storymap-background-color);
 }
-.story-content {
-  position: relative;
-  z-index: 1;
-}
 
 .storymap-headline {
-  background: var(--storymap-background-color);
   color: var(--storymap-primary-color);
   font-family: "Game of Thrones", serif;
   font-weight: 700;
   letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
 }
 
 .storymap-text {
@@ -39,6 +36,8 @@ body {
   border: 1px solid rgba(255, 107, 53, 0.2);
   color: #e2e8f0;
   line-height: 1.8;
+  position: relative;
+  z-index: 1;
 }
 
 .storymap-text a {
@@ -62,6 +61,8 @@ body {
   border-radius: 12px;
   border: 1px solid rgba(255, 107, 53, 0.3);
   margin: 20px 0;
+  position: relative;
+  z-index: 1;
 }
 
 .storymap-media img {
@@ -76,29 +77,10 @@ body {
 
 /* Enhanced navigation styling - positioned at top of column */
 .storymap-navigation {
-  background: rgba(18, 22, 25, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 107, 53, 0.2);
-  padding: 15px 0;
-  margin-bottom: 20px;
-}
-
-.nav-button {
-  background: linear-gradient(135deg, #ff6b35, #ff8c42) !important;
-  border: 2px solid #ff6b35 !important;
-  color: #1a1f2e !important;
-  font-weight: 700 !important;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-  transition: all 0.3s ease;
-}
-
-.nav-button:hover:not(:disabled) {
-  border-color: #ff8c42 !important;
-  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
-  transform: translateY(-2px);
+  position: relative;
+  z-index: 2;
 }
 
 #restart-btn {
@@ -142,5 +124,21 @@ body {
 
 /* Content area styling */
 .story-content {
+  position: relative;
   padding-right: 10px;
+  z-index: 1;
+}
+
+/* Background image overlay styling */
+.story-bg-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
 }

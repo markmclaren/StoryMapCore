@@ -80,22 +80,6 @@
   margin-bottom: 20px;
 }
 
-.nav-button {
-  border: 2px solid #1e40af !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
-  transition: all 0.3s ease;
-}
-
-.nav-button:hover:not(:disabled) {
-  border-color: #3b82f6 !important;
-  box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
-  transform: translateY(-2px);
-}
-
 #restart-btn {
   border-color: #9ca3af !important;
   color: #ffffff !important;
