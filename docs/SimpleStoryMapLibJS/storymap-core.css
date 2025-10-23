@@ -1,0 +1,294 @@
+/**
+ * SimpleStoryMapLibJS Core Styles
+ * Base responsive styles and animations for all story maps
+ */
+
+/* CSS Custom Properties for theming */
+:root {
+  --storymap-primary-color: #333333;
+  --storymap-secondary-color: #666666;
+  --storymap-accent-color: #ff0000;
+  --storymap-background-color: #ffffff;
+  --storymap-text-color: #333333;
+  --storymap-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Layout variables */
+  --storymap-container-padding: 20px;
+  --storymap-slide-transition-duration: 0.5s;
+  --storymap-slide-transition-easing: ease-in-out;
+
+  /* Map variables */
+  --storymap-map-height: 400px;
+  --storymap-marker-size: 10px;
+  --storymap-marker-size-active: 12px;
+  --storymap-line-width: 2px;
+}
+
+/* Base layout */
+.storymap-container {
+  font-family: var(--storymap-font-family);
+  color: var(--storymap-text-color);
+  line-height: 1.6;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--storymap-container-padding);
+}
+
+/* Map container */
+.storymap-map-container {
+  position: relative;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Content area */
+.storymap-content {
+  background: var(--storymap-background-color);
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.story-content {
+  position: relative;
+  min-height: 300px;
+}
+
+#content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* Typography */
+.storymap-headline {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--storymap-primary-color);
+  line-height: 1.2;
+}
+
+.storymap-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin: 0;
+  color: var(--storymap-secondary-color);
+}
+
+.storymap-text h1,
+.storymap-text h2,
+.storymap-text h3,
+.storymap-text h4,
+.storymap-text h5,
+.storymap-text h6 {
+  color: var(--storymap-primary-color);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.storymap-text p {
+  margin: 0 0 1rem 0;
+}
+
+.storymap-text a {
+  color: var(--storymap-accent-color);
+  text-decoration: none;
+}
+
+.storymap-text a:hover {
+  text-decoration: underline;
+}
+
+/* Media container */
+.storymap-media {
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.storymap-media iframe {
+  border: none;
+  border-radius: 8px;
+}
+
+.storymap-media img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.media-caption {
+  font-size: 0.9rem;
+  color: var(--storymap-secondary-color);
+  font-style: italic;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Navigation controls - now using Bootstrap buttons */
+.storymap-navigation {
+  margin-bottom: 1rem;
+}
+
+/* Progress indicator */
+.storymap-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--storymap-secondary-color);
+  font-weight: 600;
+}
+
+#progress {
+  font-weight: 700;
+  color: var(--storymap-primary-color);
+}
+
+/* Slide animations */
+.slide-out-left {
+  animation: slideOutLeft var(--storymap-slide-transition-duration) var(--storymap-slide-transition-easing);
+}
+
+.slide-out-right {
+  animation: slideOutRight var(--storymap-slide-transition-duration) var(--storymap-slide-transition-easing);
+}
+
+.slide-in-left {
+  animation: slideInLeft var(--storymap-slide-transition-duration) var(--storymap-slide-transition-easing);
+}
+
+.slide-in-right {
+  animation: slideInRight var(--storymap-slide-transition-duration) var(--storymap-slide-transition-easing);
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 767px) {
+  .storymap-container {
+    padding: 10px;
+  }
+
+  .storymap-content {
+    padding: 20px;
+  }
+
+  .storymap-headline {
+    font-size: 1.5rem;
+  }
+
+  .storymap-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .storymap-content {
+    padding: 15px;
+  }
+
+  .storymap-headline {
+    font-size: 1.3rem;
+  }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --storymap-primary-color: #ffffff;
+    --storymap-secondary-color: #cccccc;
+    --storymap-background-color: #1a1a1a;
+    --storymap-text-color: #ffffff;
+  }
+
+  .storymap-content {
+    background: var(--storymap-background-color);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --storymap-accent-color: #000000;
+    --storymap-secondary-color: #000000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .slide-out-left,
+  .slide-out-right,
+  .slide-in-left,
+  .slide-in-right {
+    animation: none;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .storymap-navigation,
+  .storymap-media iframe {
+    display: none;
+  }
+
+  .storymap-content {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}

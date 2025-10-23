@@ -1,0 +1,113 @@
+{
+    "storymap": {
+        "slides": [
+            {
+                "type": "overview",
+                "text": {
+                    "headline": "Welcome to SimpleStoryMapLibJS",
+                    "text": "This is a demonstration of the new SimpleStoryMapLibJS library - a flexible, customizable story mapping tool that maintains maximum flexibility while providing clean distribution.<br><br>This example shows how easy it is to create interactive story maps with the new architecture."
+                },
+                "media": {
+                    "url": "https://www.youtube.com/watch?v=Sa5pVSNoBXk",
+                    "caption": "SimpleStoryMapLibJS in action",
+                    "credit": "SimpleStoryMapLibJS Demo"
+                },
+                "background": {
+                    "color": "#f8fafc",
+                    "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop",
+                    "opacity": 20
+                }
+            },
+            {
+                "text": {
+                    "headline": "Getting Started",
+                    "text": "SimpleStoryMapLibJS is designed to be both powerful and easy to use. You can get started with just a few lines of code:<br><br><code>const storyMap = new StoryMap({<br>  jsonUrl: 'your-data.json',<br>  mapProvider: 'standard'<br>});</code><br><br>The library handles all the complex map interactions, animations, and responsive design for you."
+                },
+                "location": {
+                    "lat": 40.7128,
+                    "lon": -74.0060,
+                    "zoom": 12,
+                    "line": true
+                },
+                "media": {
+                    "url": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&h=600&fit=crop",
+                    "caption": "New York City - A great place to start your story",
+                    "credit": "Unsplash"
+                }
+            },
+            {
+                "text": {
+                    "headline": "Flexible Architecture",
+                    "text": "The new architecture provides maximum flexibility while maintaining clean, reusable code. You can customize:<br><br>• <strong>Map providers</strong> (PMTiles, Standard, Satellite, Mapbox)<br>• <strong>Data loading</strong> (Simple JSON, Multi-language, Custom)<br>• <strong>Media handling</strong> (YouTube, Images, Videos)<br>• <strong>Theming</strong> (Colors, fonts, spacing, animations)<br><br>Everything is designed to be overridden or extended as needed."
+                },
+                "location": {
+                    "lat": 51.5074,
+                    "lon": -0.1278,
+                    "zoom": 12,
+                    "line": true
+                },
+                "media": {
+                    "url": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=600&fit=crop",
+                    "caption": "London - Another amazing city for storytelling",
+                    "credit": "Unsplash"
+                }
+            },
+            {
+                "text": {
+                    "headline": "Multiple Data Formats",
+                    "text": "SimpleStoryMapLibJS supports various data formats to fit your needs:<br><br>• <strong>Simple JSON</strong> for basic story maps<br>• <strong>Multi-language JSON</strong> for international content<br>• <strong>Custom data loaders</strong> for dynamic content<br><br>The library automatically detects and handles different data structures, making migration from existing tools seamless."
+                },
+                "location": {
+                    "lat": 48.8566,
+                    "lon": 2.3522,
+                    "zoom": 12,
+                    "line": true
+                },
+                "media": {
+                    "url": "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&h=600&fit=crop",
+                    "caption": "Paris - The city of lights and stories",
+                    "credit": "Unsplash"
+                }
+            },
+            {
+                "text": {
+                    "headline": "Responsive & Accessible",
+                    "text": "Every aspect of SimpleStoryMapLibJS is designed with accessibility and responsiveness in mind:<br><br>• <strong>Mobile-first design</strong> that works on all devices<br>• <strong>Keyboard navigation</strong> for accessibility<br>• <strong>Screen reader support</strong> with proper ARIA labels<br>• <strong>Dark mode support</strong> that respects user preferences<br>• <strong>Reduced motion</strong> support for users with motion sensitivity<br><br>Your stories will look great and work well for everyone."
+                },
+                "location": {
+                    "lat": 35.6762,
+                    "lon": 139.6503,
+                    "zoom": 12,
+                    "line": true
+                },
+                "media": {
+                    "url": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=600&fit=crop",
+                    "caption": "Tokyo - Where tradition meets innovation",
+                    "credit": "Unsplash"
+                }
+            },
+            {
+                "text": {
+                    "headline": "Ready for Production",
+                    "text": "SimpleStoryMapLibJS is production-ready with:<br><br>• <strong>No build step required</strong> - works directly in browsers<br>• <strong>NPM/CDN distribution</strong> - easy to integrate anywhere<br>• <strong>Comprehensive documentation</strong> - everything you need to know<br>• <strong>Extensive theming system</strong> - customize to match your brand<br>• <strong>Developer-friendly API</strong> - easy to extend and modify<br><br>Start building amazing story maps today!"
+                },
+                "location": {
+                    "lat": -33.8688,
+                    "lon": 151.2093,
+                    "zoom": 12,
+                    "line": false
+                },
+                "media": {
+                    "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+                    "caption": "Sydney - A beautiful ending to our journey",
+                    "credit": "Unsplash"
+                },
+                "background": {
+                    "color": "#1e40af",
+                    "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop",
+                    "opacity": 30
+                }
+            }
+        ]
+    }
+}

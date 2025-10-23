@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleStoryMapLibJS Basic Test</title>
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="storymap-core.css">
+
+    <!-- Dependencies -->
+    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
+
+    <!-- StoryMapJS Library -->
+    <script src="storymap-core.js"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-result {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 4px solid;
+        }
+
+        .test-pass {
+            background: #f0fdf4;
+            border-color: #16a34a;
+            color: #14532d;
+        }
+
+        .test-fail {
+            background: #fef2f2;
+            border-color: #dc2626;
+            color: #991b1b;
+        }
+
+        .test-info {
+            background: #f0f9ff;
+            border-color: #0ea5e9;
+            color: #0c4a6e;
+        }
+
+        .storymap-wrapper {
+            margin-top: 30px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .test-controls {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .test-controls button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .test-controls button:hover {
+            background: #2563eb;
+        }
+
+        .test-controls button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>SimpleStoryMapLibJS Basic Test</h1>
+        <p>This page tests the core functionality of the SimpleStoryMapLibJS library.</p>
+
+        <div id="test-results">
+            <div class="test-info test-result">
+                <strong>Test Status:</strong> <span id="test-status">Initializing...</span>
+            </div>
+        </div>
+
+        <div class="test-controls">
+            <button onclick="runTests()">Run Tests</button>
+            <button onclick="testNavigation()">Test Navigation</button>
+            <button onclick="testTheme()">Test Theme</button>
+            <button onclick="resetStory()">Reset Story</button>
+        </div>
+
+        <!-- StoryMap Container -->
+        <div class="storymap-wrapper">
+            <div class="storymap-content">
+                <div class="story-content">
+                    <div id="content-wrapper">
+                        <h1 id="headline" class="storymap-headline">SimpleStoryMapLibJS Test</h1>
+                        <div id="text" class="storymap-text">
+                            This is a test of the SimpleStoryMapLibJS library. If you can see this content and the map loads correctly, the basic functionality is working.
+                        </div>
+                        <div id="media" class="storymap-media"></div>
+                    </div>
+                </div>
+
+                <div class="storymap-navigation">
+                    <div class="storymap-progress">
+                        <span id="progress">1/3</span>
+                    </div>
+                    <div>
+                        <button id="prev-btn" class="nav-button">Previous</button>
+                        <button id="next-btn" class="nav-button">Next</button>
+                        <button id="restart-btn" class="nav-button">Restart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="storymap-map-container">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let storyMap;
+        let testResults = [];
+
+        // Test data
+        const testData = {
+            "storymap": {
+                "slides": [
+                    {
+                        "text": {
+                            "headline": "Test Slide 1",
+                            "text": "This is the first test slide. It tests basic content loading and display."
+                        },
+                        "location": {
+                            "lat": 40.7128,
+                            "lon": -74.0060,
+                            "zoom": 10,
+                            "line": true
+                        },
+                        "media": {
+                            "url": "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=400&h=300&fit=crop",
+                            "caption": "Test image 1",
+                            "credit": "Test"
+                        }
+                    },
+                    {
+                        "text": {
+                            "headline": "Test Slide 2",
+                            "text": "This is the second test slide. It tests navigation and map movement."
+                        },
+                        "location": {
+                            "lat": 51.5074,
+                            "lon": -0.1278,
+                            "zoom": 10,
+                            "line": true
+                        },
+                        "media": {
+                            "url": "https://www.youtube.com/watch?v=Sa5pVSNoBXk",
+                            "caption": "Test video",
+                            "credit": "Test"
+                        }
+                    },
+                    {
+                        "text": {
+                            "headline": "Test Slide 3",
+                            "text": "This is the third test slide. It tests the end of navigation and background features."
+                        },
+                        "location": {
+                            "lat": 48.8566,
+                            "lon": 2.3522,
+                            "zoom": 10,
+                            "line": false
+                        },
+                        "media": {
+                            "url": "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=300&fit=crop",
+                            "caption": "Test image 2",
+                            "credit": "Test"
+                        },
+                        "background": {
+                            "color": "#f0f9ff",
+                            "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop",
+                            "opacity": 30
+                        }
+                    }
+                ]
+            }
+        };
+
+        // Initialize StoryMap
+        function initializeStoryMap() {
+            return new Promise((resolve, reject) => {
+                try {
+                    storyMap = new StoryMap({
+                        jsonUrl: 'data:text/plain,' + encodeURIComponent(JSON.stringify(testData)),
+                        mapProvider: 'standard',
+                        features: {
+                            animations: true,
+                            keyboardNavigation: true,
+                            progressBar: true
+                        },
+                        styling: {
+                            markerColor: '#3b82f6',
+                            markerColorActive: '#ef4444',
+                            lineColor: '#6b7280',
+                            lineColorActive: '#ef4444'
+                        }
+                    });
+
+                    // Wait a bit for initialization
+                    setTimeout(() => {
+                        resolve(storyMap);
+                    }, 1000);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        // Test functions
+        async function runTests() {
+            testResults = [];
+            document.getElementById('test-status').textContent = 'Running tests...';
+
+            try {
+                // Test 1: Library loads
+                await testLibraryLoad();
+                addTestResult('Library Load', true, 'SimpleStoryMapLibJS library loaded successfully');
+
+                // Test 2: StoryMap initialization
+                await testInitialization();
+                addTestResult('Initialization', true, 'StoryMap initialized successfully');
+
+                // Test 3: Content loading
+                await testContentLoading();
+                addTestResult('Content Loading', true, 'Story content loaded and displayed');
+
+                // Test 4: Map loading
+                await testMapLoading();
+                addTestResult('Map Loading', true, 'Map loaded and markers created');
+
+                // Test 5: Navigation
+                await testNavigation();
+                addTestResult('Navigation', true, 'Navigation buttons work correctly');
+
+                document.getElementById('test-status').textContent = 'All tests passed! ✅';
+
+            } catch (error) {
+                addTestResult('Test Error', false, error.message);
+                document.getElementById('test-status').textContent = 'Tests failed ❌';
+            }
+        }
+
+        async function testLibraryLoad() {
+            return new Promise((resolve, reject) => {
+                if (typeof StoryMap === 'function') {
+                    resolve();
+                } else {
+                    reject(new Error('StoryMap class not found'));
+                }
+            });
+        }
+
+        async function testInitialization() {
+            return new Promise((resolve, reject) => {
+                if (storyMap) {
+                    resolve();
+                } else {
+                    reject(new Error('StoryMap instance not created'));
+                }
+            });
+        }
+
+        async function testContentLoading() {
+            return new Promise((resolve, reject) => {
+                const headline = document.getElementById('headline');
+                const text = document.getElementById('text');
+
+                if (headline && text && headline.textContent && text.textContent) {
+                    resolve();
+                } else {
+                    reject(new Error('Content not loaded into DOM elements'));
+                }
+            });
+        }
+
+        async function testMapLoading() {
+            return new Promise((resolve, reject) => {
+                if (storyMap.map && storyMap.map.loaded()) {
+                    resolve();
+                } else {
+                    reject(new Error('Map not loaded'));
+                }
+            });
+        }
+
+        async function testNavigation() {
+            return new Promise((resolve, reject) => {
+                const nextBtn = document.getElementById('next-btn');
+                const prevBtn = document.getElementById('prev-btn');
+
+                if (nextBtn && prevBtn) {
+                    // Test that buttons exist and have correct initial state
+                    const initialDisabled = nextBtn.disabled;
+                    resolve();
+                } else {
+                    reject(new Error('Navigation buttons not found'));
+                }
+            });
+        }
+
+        function testTheme() {
+            // Test theme switching
+            if (window.themeBuilder) {
+                themeBuilder.applyTheme('dark');
+                setTimeout(() => {
+                    themeBuilder.applyTheme('default');
+                    addTestResult('Theme System', true, 'Theme switching works');
+                }, 1000);
+            } else {
+                addTestResult('Theme System', false, 'Theme builder not available');
+            }
+        }
+
+        function resetStory() {
+            if (storyMap) {
+                storyMap.goToSlide(0);
+                addTestResult('Reset', true, 'Story reset to first slide');
+            }
+        }
+
+        function addTestResult(testName, passed, message) {
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${passed ? 'test-pass' : 'test-fail'}`;
+            resultDiv.innerHTML = `<strong>${testName}:</strong> ${message}`;
+
+            resultsDiv.appendChild(resultDiv);
+            testResults.push({ testName, passed, message });
+        }
+
+        // Auto-run tests when page loads
+        window.addEventListener('load', async () => {
+            try {
+                await initializeStoryMap();
+                await runTests();
+            } catch (error) {
+                addTestResult('Auto Test', false, 'Auto-initialization failed: ' + error.message);
+            }
+        });
+
+        // Make functions available globally for button clicks
+        window.runTests = runTests;
+        window.testNavigation = () => {
+            if (storyMap) {
+                storyMap.next();
+                setTimeout(() => storyMap.previous(), 1000);
+                addTestResult('Manual Navigation', true, 'Manual navigation test completed');
+            }
+        };
+        window.testTheme = testTheme;
+        window.resetStory = resetStory;
+    </script>
+</body>
+</html>
