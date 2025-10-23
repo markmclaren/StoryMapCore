@@ -629,9 +629,9 @@ function switchLanguage() {
     // Update navigation button text
     updateNavButtonText();
 
-    document.getElementsByTagName("title")[0].textContent = fullData.languages[currentLanguage].title;
+    // Update page title
+    document.title = fullData.languages[currentLanguage].title;
   }
-
 }
 
 function updateNavButtonText() {

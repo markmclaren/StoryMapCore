@@ -18,9 +18,6 @@
     <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
     <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
 
-    <!-- SimpleStoryMapLibJS Library -->
-    <script src="../SimpleStoryMapLibJS/storymap-core.js"></script>
-
     <style>
       /* Full screen height layout */
       html, body {
@@ -123,139 +120,212 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Load the SimpleStoryMapLibJS Core Library -->
+    <script src="../SimpleStoryMapLibJS/storymap-core.js"></script>
+
+    <!-- Custom initialization script for las-rutas-del-oro-ilegal -->
     <script>
-      // Initialize SimpleStoryMapLibJS with multi-language and satellite configuration (Las Rutas style)
-      const storyMap = new StoryMap({
-        jsonUrl: 'las-rutas-del-oro-ilegal.json',
-        dataLoader: async (config) => {
-          // Custom multi-language data loader
-          const response = await fetch(config.jsonUrl);
-          const fullData = await response.json();
+      // Custom data loader to handle multi-language JSON
+      async function loadMultiLanguageData(config) {
+        const response = await fetch(config.jsonUrl);
+        const data = await response.json();
 
-          // Set up language switching functionality
-          const currentLang = 'en';
-          const slides = fullData.storymaps[currentLang].storymap.slides;
+        // Get current language from the selector
+        const languageSelector = document.getElementById('language-selector');
+        const currentLang = languageSelector ? languageSelector.value : 'en';
 
-          // Update page title
-          if (fullData.languages[currentLang].title) {
-            document.title = fullData.languages[currentLang].title;
-          }
+        // Return slides for the current language
+        return data.storymaps[currentLang].storymap.slides;
+      }
 
-          // Set up language selector
-          setupLanguageSelector(fullData);
-
-          return slides;
-        },
-        mapInitializer: (container, firstSlide) => {
-          // Sentinel-2 satellite imagery setup (from original Las Rutas)
-          return new maplibregl.Map({
-            container: container,
-            style: {
-              version: 8,
-              sources: {
-                'sentinel2-tiles': {
-                  type: 'raster',
-                  tiles: ['https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/g/{z}/{y}/{x}.jpg'],
-                  minzoom: 0,
-                  maxzoom: 13,
-                  scheme: 'xyz',
-                  tileSize: 256,
-                  attribution: '<a href="https://s2maps.eu">Sentinel-2 cloudless - https://s2maps.eu</a> by <a href="https://eox.at">EOX IT Services GmbH</a> (Contains modified Copernicus Sentinel data 2024)'
-                }
-              },
-              layers: [{
-                id: 'sentinel2-layer',
-                type: 'raster',
-                source: 'sentinel2-tiles',
-                layout: { visibility: 'visible' },
-                paint: {
-                  'raster-opacity': 1,
-                  'raster-fade-duration': 0
-                }
-              }]
+      // Custom map initializer using Sentinel-2 style
+      function initializeSentinel2Map(container, firstSlide) {
+        const sentinel2Style = {
+          version: 8,
+          sources: {
+            "sentinel2-tiles": {
+              type: "raster",
+              tiles: [
+                "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/g/{z}/{y}/{x}.jpg",
+              ],
+              minzoom: 0,
+              maxzoom: 13,
+              scheme: "xyz",
+              tileSize: 256,
+              attribution:
+                '<a href="https://s2maps.eu">Sentinel-2 cloudless - https://s2maps.eu</a> by <a href="https://eox.at">EOX IT Services GmbH</a> (Contains modified Copernicus Sentinel data 2024)',
             },
-            center: [parseFloat(firstSlide.location.lon), parseFloat(firstSlide.location.lat)],
-            zoom: parseFloat(firstSlide.location.zoom) || 2
+          },
+          layers: [
+            {
+              id: "sentinel2-layer",
+              type: "raster",
+              source: "sentinel2-tiles",
+              layout: { visibility: "visible" },
+              paint: {
+                "raster-opacity": 1,
+                "raster-fade-duration": 0,
+              },
+            },
+          ],
+        };
+
+        return new maplibregl.Map({
+          container: container,
+          style: sentinel2Style,
+          center: [
+            parseFloat(firstSlide.location.lon),
+            parseFloat(firstSlide.location.lat),
+          ],
+          zoom: parseFloat(firstSlide.location.zoom) || 2,
+        });
+      }
+
+      // Initialize the story map when the page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        // Initialize language selector first
+        initializeLanguageSelector();
+
+        // Create StoryMap instance with custom configuration
+        const storyMap = new StoryMap({
+          jsonUrl: 'las-rutas-del-oro-ilegal.json',
+          dataLoader: loadMultiLanguageData,
+          mapInitializer: initializeSentinel2Map,
+          mapContainer: 'map',
+          features: {
+            animations: true,
+            keyboardNavigation: true,
+            progressBar: false // We'll handle progress display manually
+          },
+          styling: {
+            markerRadius: 10,
+            markerRadiusActive: 12,
+            markerColor: "#8C4B00",
+            markerColorActive: "#F29F05",
+            markerStrokeWidth: 2,
+            markerStrokeWidthActive: 2,
+            markerStrokeColor: "#ffffff",
+            lineColor: "#FFFFFF",
+            lineColorActive: "#F29F05",
+            lineWidth: 2,
+            lineWidthActive: 2,
+            lineDasharray: [2, 2]
+          }
+        });
+
+        // Handle language switching
+        const languageSelector = document.getElementById('language-selector');
+        if (languageSelector) {
+          languageSelector.addEventListener('change', function() {
+            // Update page title
+            const langData = getCurrentLanguageData();
+            if (langData) {
+              document.title = langData.title;
+            }
+
+            // Update navigation button text
+            updateNavButtonText();
+
+            // Reinitialize story map with new language
+            storyMap.updateConfig({
+              dataLoader: loadMultiLanguageData
+            });
+
+            // Reload the story data
+            loadMultiLanguageData({ jsonUrl: 'las-rutas-del-oro-ilegal.json' })
+              .then(newSlides => {
+                storyMap.storyData = newSlides;
+                storyMap.currentSlideIndex = 0;
+
+                // Clear existing map elements
+                if (storyMap.map) {
+                  storyMap.recreateMapElements();
+                }
+
+                // Update the slide
+                storyMap.updateSlide();
+              })
+              .catch(error => {
+                console.error('Error reloading story data:', error);
+              });
           });
-        },
-        features: {
-          animations: true,
-          keyboardNavigation: true,
-          progressBar: true
-        },
-        styling: {
-          markerRadius: 10,
-          markerRadiusActive: 12,
-          markerColor: "#8C4B00",
-          markerColorActive: "#F29F05",
-          markerStrokeWidth: 2,
-          markerStrokeWidthActive: 2,
-          markerStrokeColor: "#ffffff",
-          lineColor: "#FFFFFF",
-          lineColorActive: "#F29F05",
-          lineWidth: 2,
-          lineDasharray: [2, 2]
         }
       });
 
-      // Set up language selector functionality
-      function setupLanguageSelector(fullData) {
+      // Initialize language selector
+      function initializeLanguageSelector() {
         const languageSelector = document.getElementById('language-selector');
-        if (!languageSelector) return;
+        if (languageSelector) {
+          fetch('las-rutas-del-oro-ilegal.json')
+            .then(response => response.json())
+            .then(data => {
+              // Populate language options
+              Object.keys(data.languages).forEach(langCode => {
+                const langInfo = data.languages[langCode];
+                const option = document.createElement('option');
+                option.value = langCode;
+                option.textContent = langInfo.name;
+                if (langCode === 'en') {
+                  option.selected = true;
+                }
+                languageSelector.appendChild(option);
+              });
 
-        // Populate language options
-        Object.keys(fullData.languages).forEach(langCode => {
-          const langInfo = fullData.languages[langCode];
-          const option = document.createElement('option');
-          option.value = langCode;
-          option.textContent = langInfo.name;
-          if (langCode === 'en') {
-            option.selected = true;
-          }
-          languageSelector.appendChild(option);
-        });
+              // Set initial page title
+              const currentLangData = data.languages['en'];
+              if (currentLangData) {
+                document.title = currentLangData.title;
+              }
 
-        // Add language change handler
-        languageSelector.addEventListener('change', (e) => {
-          const newLanguage = e.target.value;
-          switchLanguage(newLanguage, fullData);
-        });
+              // Update navigation button text
+              updateNavButtonText();
+            })
+            .catch(error => {
+              console.error('Error loading language data:', error);
+            });
+        }
       }
 
-      // Language switching function
-      function switchLanguage(newLanguage, fullData) {
-        if (fullData.languages[newLanguage] && fullData.storymaps[newLanguage]) {
-          // Update story data
-          const newSlides = fullData.storymaps[newLanguage].storymap.slides;
-          storyMap.updateConfig({
-            storyData: newSlides
+      // Update navigation button text based on current language
+      function updateNavButtonText() {
+        fetch('las-rutas-del-oro-ilegal.json')
+          .then(response => response.json())
+          .then(data => {
+            const languageSelector = document.getElementById('language-selector');
+            const currentLang = languageSelector ? languageSelector.value : 'en';
+            const langData = data.languages[currentLang];
+
+            if (langData) {
+              const prevBtn = document.getElementById('prev-btn');
+              const nextBtn = document.getElementById('next-btn');
+              const restartBtn = document.getElementById('restart-btn');
+
+              if (prevBtn) prevBtn.textContent = langData.prev || 'Previous';
+              if (nextBtn) nextBtn.textContent = langData.next || 'Next';
+              if (restartBtn) restartBtn.textContent = langData.restart || 'Restart';
+            }
+          })
+          .catch(error => {
+            console.error('Error updating button text:', error);
           });
-
-          // Update page title
-          document.title = fullData.languages[newLanguage].title;
-
-          // Update navigation button text
-          updateNavButtonText(fullData, newLanguage);
-
-          // Reset to first slide
-          storyMap.goToSlide(0);
-        }
       }
 
-      function updateNavButtonText(fullData, language) {
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const langData = fullData.languages[language];
+      // Get current language data
+      function getCurrentLanguageData() {
+        const languageSelector = document.getElementById('language-selector');
+        const currentLang = languageSelector ? languageSelector.value : 'en';
 
-        if (prevBtn && langData && langData.prev) {
-          prevBtn.textContent = langData.prev;
-        }
-        if (nextBtn && langData && langData.next) {
-          nextBtn.textContent = langData.next;
-        }
+        return new Promise((resolve, reject) => {
+          fetch('las-rutas-del-oro-ilegal.json')
+            .then(response => response.json())
+            .then(data => {
+              resolve(data.languages[currentLang]);
+            })
+            .catch(error => {
+              reject(error);
+            });
+        });
       }
-
-
     </script>
   </body>
 </html>

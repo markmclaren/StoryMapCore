@@ -810,6 +810,48 @@ class StoryMap {
   updateConfig(newConfig) {
     this.config = { ...this.config, ...newConfig };
   }
+
+  // Clear map elements (markers and lines)
+  clearMapElements() {
+    if (!this.map) return;
+
+    // Remove all markers
+    if (this.map.getLayer("inactive-marker-circles")) {
+      this.map.removeLayer("inactive-marker-circles");
+    }
+    if (this.map.getLayer("active-marker-circle")) {
+      this.map.removeLayer("active-marker-circle");
+    }
+    if (this.map.getSource("inactive-markers")) {
+      this.map.removeSource("inactive-markers");
+    }
+    if (this.map.getSource("active-marker")) {
+      this.map.removeSource("active-marker");
+    }
+
+    // Remove all lines
+    this.lines.forEach((line) => {
+      if (this.map.getLayer(line.id)) {
+        this.map.removeLayer(line.id);
+      }
+      if (this.map.getSource(`line-source-${line.targetSlideIndex - 1}`)) {
+        this.map.removeSource(`line-source-${line.targetSlideIndex - 1}`);
+      }
+    });
+    this.lines = [];
+  }
+
+  // Public methods to recreate map elements (for language switching)
+  recreateMapElements() {
+    if (!this.map || !this.storyData) return;
+
+    // Clear existing elements
+    this.clearMapElements();
+
+    // Recreate all elements
+    this.createAllLines();
+    this.createAllMarkers();
+  }
 }
 
 // Export for different module systems

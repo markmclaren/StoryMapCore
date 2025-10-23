@@ -5,21 +5,24 @@
             "code": "en",
             "title": "The Routes of Illegal Gold",
             "prev": "Previous",
-            "next": "Next"
+            "next": "Next",
+            "restart": "Restart"
         },
         "es": {
             "name": "Español",
             "code": "es",
             "title": "Las Rutas del Oro Ilegal",
             "prev": "Anterior",
-            "next": "Siguiente"
+            "next": "Siguiente",
+            "restart": "Reiniciar"
         },
         "pt": {
             "name": "Português",
             "code": "pt",
             "title": "As Rotas do Ouro Ilegal",
             "prev": "Anterior",
-            "next": "Próximo"
+            "next": "Próximo",
+            "restart": "Reiniciar"
         }
     },
     "storymaps": {
