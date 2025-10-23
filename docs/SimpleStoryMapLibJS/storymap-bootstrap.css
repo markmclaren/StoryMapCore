@@ -1,0 +1,30 @@
+.btn-primary {
+  --bs-btn-color: var(--storymap-primary-color);
+  --bs-btn-bg: var(--storymap-accent-color);
+  --bs-btn-border-color: var(--storymap-accent-color);
+}
+
+.btn-primary:hover {
+  --bs-btn-color: var(--storymap-primary-color);
+  --bs-btn-bg: var(--storymap-accent-color-hover);
+}
+
+.btn-secondary {
+  --bs-btn-color: var(--storymap-secondary-color);
+  --bs-btn-bg: var(--storymap-background-color);
+  --bs-btn-border-color: var(--storymap-secondary-color);
+}
+
+.btn-secondary:hover {
+  --bs-btn-bg: var(--storymap-secondary-color);
+  --bs-btn-color: var(--storymap-background-color);
+}
+
+.btn-outline-secondary {
+  --bs-btn-color: var(--storymap-secondary-color);
+  --bs-btn-border-color: var(--storymap-secondary-color);
+}
+.btn-outline-secondary:hover {
+  --bs-btn-color: var(--storymap-secondary-color);
+  --bs-btn-border-color: var(--storymap-secondary-color);
+}
