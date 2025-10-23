@@ -2,6 +2,10 @@
 
 A lightweight, programmer-friendly alternative to [StoryMapJS](https://github.com/NUKnightLab/StoryMapJS/) that strips away the editor and backend, leaving just the essentials for building narrative maps.
 
+## Background
+
+This project is a migration from a simpler attempt available at [SimpleStoryMapJS](https://github.com/markmclaren/SimpleStoryMapJS). The original version provided a basic implementation, and this code wraps that approach in a structured JavaScript library to make it more modular, reusable, and easier to integrate into other projects.
+
 ## Motivation
 
 The original StoryMapJS is an excellent tool for non-programmers, providing a full authoring platform where users can create and edit story maps without touching code.   However, this approach comes with trade-offs: opinionated design choices, hardcoded solutions, and a heavier technical stack.

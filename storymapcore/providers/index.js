@@ -1,5 +1,5 @@
 /**
- * StoryMapJS Providers Index
+ * StoryMapCore Providers Index
  * Unified exports for all provider utilities
  */
 

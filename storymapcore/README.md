@@ -1,8 +1,8 @@
-# StoryMapJS
+# StoryMapCore
 
 A flexible, customizable story map library that extracts the best patterns from existing story mapping tools while maintaining maximum flexibility for customization.
 
-[![npm version](https://badge.fury.io/js/storymapjs.svg)](https://badge.fury.io/js/storymapjs)
+[![npm version](https://badge.fury.io/js/storymapcore.svg)](https://badge.fury.io/js/storymapcore)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## ✨ Features
@@ -17,63 +17,15 @@ A flexible, customizable story map library that extracts the best patterns from 
 
 ## 🚀 Quick Start
 
-### CDN Usage
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>My Story Map</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/storymapjs@1.0.0/storymap-core.css">
-    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
-    <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
-</head>
-<body>
-    <div class="storymap-wrapper">
-        <div class="storymap-content">
-            <div class="story-content">
-                <div id="content-wrapper">
-                    <h1 id="headline"></h1>
-                    <div id="text"></div>
-                    <div id="media"></div>
-                </div>
-            </div>
-            <div class="storymap-navigation">
-                <div class="storymap-progress">
-                    <span id="progress"></span>
-                </div>
-                <div>
-                    <button id="prev-btn">Previous</button>
-                    <button id="next-btn">Next</button>
-                    <button id="restart-btn">Restart</button>
-                </div>
-            </div>
-        </div>
-        <div class="storymap-map-container">
-            <div id="map"></div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/storymapjs@1.0.0/storymap-core.js"></script>
-    <script>
-        const storyMap = new StoryMap({
-            jsonUrl: 'your-story-data.json',
-            mapProvider: 'standard'
-        });
-    </script>
-</body>
-</html>
-```
-
 ### NPM Usage
 
 ```bash
-npm install storymapjs
+npm install storymapcore
 ```
 
 ```javascript
-import StoryMap from 'storymapjs';
-import 'storymapjs/css';
+import StoryMap from 'storymapcore';
+import 'storymapcore/css';
 
 const storyMap = new StoryMap({
     jsonUrl: 'your-story-data.json',
@@ -470,8 +422,8 @@ Audio file embedding.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/StoryMapJS.git
-cd StoryMapJS
+git clone https://github.com/markmclaren/StoryMapCore.git
+cd StoryMapCore
 
 # Install dependencies
 npm install
@@ -488,15 +440,7 @@ npm run lint
 
 ## 📄 License
 
-MIT © [Your Name]
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+MIT © Mark McLaren
 
 ## 🙏 Acknowledgments
 
@@ -504,13 +448,6 @@ MIT © [Your Name]
 - Built with MapLibre GL JS
 - PMTiles support for offline maps
 - OpenFreeMap for free tile hosting
-
-## 📞 Support
-
-- 📧 Email: support@storymapjs.com
-- 💬 Discord: [Join our community](https://discord.gg/storymapjs)
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/StoryMapJS/issues)
-- 📖 Docs: [Full Documentation](https://docs.storymapjs.com)
 
 ---
 

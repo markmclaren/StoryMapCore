@@ -1,4 +1,4 @@
-# StoryMapJS Library Architecture Options
+# SimpleStoryMapJS Library Architecture Options
 
 ## Overview
 
@@ -350,7 +350,7 @@ The **Flexibility-First Architecture (Option 2)** has been successfully implemen
 - **Simple custom.css approach** for user styling
 - **Responsive design** with accessibility features
 
-### ✅ **Updated Examples** (`docs/`)
+### ✅ **Updated Examples** (`examples/`)
 - **Arya's Journey**: Updated with PMTiles provider and Game of Thrones theme
 - **Obama**: Updated with standard tiles and presidential theme
 - **Las Rutas del Oro Ilegal**: Updated with satellite imagery and multi-language support
@@ -381,11 +381,11 @@ npm install storymapjs
 ```
 
 **Examples:**
-- `examples/basic-example.html` - Complete working example
+- `examples/basic-example/index.html` - Complete working example
 - `test-basic.html` - Test suite with validation
-- `docs/aryas-journey/index.html` - Updated Arya's Journey example
-- `docs/obama/index.html` - Updated Obama example
-- `docs/las-rutas-del-oro-ilegal/index.html` - Updated Las Rutas example
+- `examples/aryas-journey/index.html` - Updated Arya's Journey example
+- `examples/obama/index.html` - Updated Obama example
+- `examples/las-rutas-del-oro-ilegal/index.html` - Updated Las Rutas example
 - `README.md` - Comprehensive documentation
 
 **Key Benefits Achieved:**
@@ -411,13 +411,22 @@ StoryMapJS/
 │   ├── base-theme.css        # Core responsive styles
 │   └── custom.css           # Simple CSS customization
 ├── examples/
-│   ├── basic-example.html    # Demo example
-│   └── basic-example-data.json
+│   ├── basic-example/
+│   │   ├── index.html
+│   │   ├── basic-example-data.json
+│   │   └── basic-example-theme.css
+│   ├── aryas-journey/
+│   ├── obama/
+│   └── las-rutas-del-oro-ilegal/
 ├── test-basic.html           # Test suite
 ├── package.json              # NPM configuration
 └── README.md                 # Documentation
 
-docs/
+examples/
+├── basic-example/
+│   ├── index.html
+│   ├── basic-example-data.json
+│   └── basic-example-theme.css
 ├── aryas-journey/
 │   ├── index.html            # Updated with new library
 │   ├── aryas-journey-theme.css # Separate custom CSS file
