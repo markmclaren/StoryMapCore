@@ -1,5 +1,5 @@
 /**
- * SimpleStoryMapLibJS Map Provider Utilities
+ * StoryMapCore Map Provider Utilities
  * Loose utility functions for common map initialization patterns
  * Not rigid plugins - maximum flexibility for customization
  */

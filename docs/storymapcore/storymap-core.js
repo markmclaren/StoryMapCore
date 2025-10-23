@@ -1,5 +1,5 @@
 /**
- * SimpleStoryMapLibJS Core Library
+ * StoryMapCore Core Library
  * Flexibility-First Architecture - Maximum customization with clean distribution
  *
  * This library extracts the 95% shared functionality from existing examples

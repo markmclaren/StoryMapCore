@@ -4,13 +4,13 @@
             {
                 "type": "overview",
                 "text": {
-                    "headline": "Welcome to SimpleStoryMapLibJS",
-                    "text": "This is a demonstration of the new SimpleStoryMapLibJS library - a flexible, customizable story mapping tool that maintains maximum flexibility while providing clean distribution.<br><br>This example shows how easy it is to create interactive story maps with the new architecture."
+                    "headline": "Welcome to StoryMapCore",
+                    "text": "This is a demonstration of the new StoryMapCore library - a flexible, customizable story mapping tool that maintains maximum flexibility while providing clean distribution.<br><br>This example shows how easy it is to create interactive story maps with the new architecture."
                 },
                 "media": {
                     "url": "https://www.youtube.com/watch?v=Sa5pVSNoBXk",
-                    "caption": "SimpleStoryMapLibJS in action",
-                    "credit": "SimpleStoryMapLibJS Demo"
+                    "caption": "StoryMapCore in action",
+                    "credit": "StoryMapCore Demo"
                 },
                 "location": {
                     "lat": 40.7128,
@@ -27,7 +27,7 @@
             {
                 "text": {
                     "headline": "Getting Started",
-                    "text": "SimpleStoryMapLibJS is designed to be both powerful and easy to use. You can get started with just a few lines of code:<br><br><code>const storyMap = new StoryMap({<br>  jsonUrl: 'your-data.json',<br>  mapProvider: 'standard'<br>});</code><br><br>The library handles all the complex map interactions, animations, and responsive design for you."
+                    "text": "StoryMapCore is designed to be both powerful and easy to use. You can get started with just a few lines of code:<br><br><code>const storyMap = new StoryMap({<br>  jsonUrl: 'your-data.json',<br>  mapProvider: 'standard'<br>});</code><br><br>The library handles all the complex map interactions, animations, and responsive design for you."
                 },
                 "location": {
                     "lat": 40.7128,
@@ -61,7 +61,7 @@
             {
                 "text": {
                     "headline": "Multiple Data Formats",
-                    "text": "SimpleStoryMapLibJS supports various data formats to fit your needs:<br><br>• <strong>Simple JSON</strong> for basic story maps<br>• <strong>Multi-language JSON</strong> for international content<br>• <strong>Custom data loaders</strong> for dynamic content<br><br>The library automatically detects and handles different data structures, making migration from existing tools seamless."
+                    "text": "StoryMapCore supports various data formats to fit your needs:<br><br>• <strong>Simple JSON</strong> for basic story maps<br>• <strong>Multi-language JSON</strong> for international content<br>• <strong>Custom data loaders</strong> for dynamic content<br><br>The library automatically detects and handles different data structures, making migration from existing tools seamless."
                 },
                 "location": {
                     "lat": 48.8566,
@@ -78,7 +78,7 @@
             {
                 "text": {
                     "headline": "Responsive & Accessible",
-                    "text": "Every aspect of SimpleStoryMapLibJS is designed with accessibility and responsiveness in mind:<br><br>• <strong>Mobile-first design</strong> that works on all devices<br>• <strong>Keyboard navigation</strong> for accessibility<br>• <strong>Screen reader support</strong> with proper ARIA labels<br>• <strong>Dark mode support</strong> that respects user preferences<br>• <strong>Reduced motion</strong> support for users with motion sensitivity<br><br>Your stories will look great and work well for everyone."
+                    "text": "Every aspect of StoryMapCore is designed with accessibility and responsiveness in mind:<br><br>• <strong>Mobile-first design</strong> that works on all devices<br>• <strong>Keyboard navigation</strong> for accessibility<br>• <strong>Screen reader support</strong> with proper ARIA labels<br>• <strong>Dark mode support</strong> that respects user preferences<br>• <strong>Reduced motion</strong> support for users with motion sensitivity<br><br>Your stories will look great and work well for everyone."
                 },
                 "location": {
                     "lat": 35.6762,
@@ -95,7 +95,7 @@
             {
                 "text": {
                     "headline": "Ready for Production",
-                    "text": "SimpleStoryMapLibJS is production-ready with:<br><br>• <strong>No build step required</strong> - works directly in browsers<br>• <strong>NPM/CDN distribution</strong> - easy to integrate anywhere<br>• <strong>Comprehensive documentation</strong> - everything you need to know<br>• <strong>Extensive theming system</strong> - customize to match your brand<br>• <strong>Developer-friendly API</strong> - easy to extend and modify<br><br>Start building amazing story maps today!"
+                    "text": "StoryMapCore is production-ready with:<br><br>• <strong>No build step required</strong> - works directly in browsers<br>• <strong>NPM/CDN distribution</strong> - easy to integrate anywhere<br>• <strong>Comprehensive documentation</strong> - everything you need to know<br>• <strong>Extensive theming system</strong> - customize to match your brand<br>• <strong>Developer-friendly API</strong> - easy to extend and modify<br><br>Start building amazing story maps today!"
                 },
                 "location": {
                     "lat": -33.8688,

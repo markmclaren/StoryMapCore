@@ -1,5 +1,5 @@
 /**
- * SimpleStoryMapLibJS Media Provider Utilities
+ * StoryMapCore Media Provider Utilities
  * Loose utility functions for common media handling patterns
  * Supports YouTube, images, videos, and custom media types
  */

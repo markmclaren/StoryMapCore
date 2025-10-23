@@ -1,5 +1,5 @@
 {
-  "name": "simplestorymaplibjs",
+  "name": "storymapcore",
   "version": "1.0.0",
   "description": "A flexible, customizable story map library with maximum flexibility and clean distribution",
   "main": "storymap-core.js",
@@ -90,8 +90,8 @@
     "./css": "./storymap-core.css"
   },
   "cdn": {
-    "js": "https://cdn.jsdelivr.net/npm/simplestorymaplibjs@1.0.0/storymap-core.js",
-    "css": "https://cdn.jsdelivr.net/npm/simplestorymaplibjs@1.0.0/storymap-core.css"
+    "js": "https://cdn.jsdelivr.net/npm/storymapcore@1.0.0/storymap-core.js",
+    "css": "https://cdn.jsdelivr.net/npm/storymapcore@1.0.0/storymap-core.css"
   },
   "funding": {
     "type": "individual",

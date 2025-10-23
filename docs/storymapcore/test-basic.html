@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimpleStoryMapLibJS Basic Test</title>
+    <title>StoryMapCore Basic Test</title>
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="storymap-core.css">
@@ -13,10 +13,10 @@
     <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
     <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
 
-    <!-- SimpleStoryMapLibJS Map Providers -->
+    <!-- StoryMapCore Map Providers -->
     <script src="providers/map-providers.js"></script>
 
-    <!-- StoryMapJS Library -->
+    <!-- StoryMapCore Library -->
     <script src="storymap-core.js"></script>
 
     <style>
@@ -98,8 +98,8 @@
 </head>
 <body>
     <div class="test-container">
-        <h1>SimpleStoryMapLibJS Basic Test</h1>
-        <p>This page tests the core functionality of the SimpleStoryMapLibJS library.</p>
+        <h1>StoryMapCore Basic Test</h1>
+        <p>This page tests the core functionality of the StoryMapCore library.</p>
 
         <div id="test-results">
             <div class="test-info test-result">
@@ -118,9 +118,9 @@
             <div class="storymap-content">
                 <div class="story-content">
                     <div id="content-wrapper">
-                        <h1 id="headline" class="storymap-headline">SimpleStoryMapLibJS Test</h1>
+                        <h1 id="headline" class="storymap-headline">StoryMapCore Test</h1>
                         <div id="text" class="storymap-text">
-                            This is a test of the SimpleStoryMapLibJS library. If you can see this content and the map loads correctly, the basic functionality is working.
+                            This is a test of the StoryMapCore library. If you can see this content and the map loads correctly, the basic functionality is working.
                         </div>
                         <div id="media" class="storymap-media"></div>
                     </div>
@@ -250,7 +250,7 @@
             try {
                 // Test 1: Library loads
                 await testLibraryLoad();
-                addTestResult('Library Load', true, 'SimpleStoryMapLibJS library loaded successfully');
+                addTestResult('Library Load', true, 'StoryMapCore library loaded successfully');
 
                 // Test 2: StoryMap initialization
                 await testInitialization();

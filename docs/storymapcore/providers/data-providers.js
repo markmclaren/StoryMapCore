@@ -1,5 +1,5 @@
 /**
- * SimpleStoryMapLibJS Data Provider Utilities
+ * StoryMapCore Data Provider Utilities
  * Loose utility functions for common data loading patterns
  * Supports simple JSON and multi-language configurations
  */

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document compares two architectural approaches for transforming the existing SimpleStoryMapJS examples into a distributable library/framework while maintaining flexibility.
+This document compares two architectural approaches for transforming the existing StoryMapCore examples into a distributable library/framework while maintaining flexibility.
 
 ## Current State Analysis
 
