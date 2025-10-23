@@ -202,9 +202,18 @@ class StoryMap {
   }
 
   restart() {
-    if (this.currentSlideIndex > 0 && !this.isAnimating) {
+    if (!this.isAnimating) {
       this.currentSlideIndex = 0;
-      this.flyToSlide(0);
+
+      // Find the first slide with valid coordinates and fly to it (like old implementation)
+      const firstValidSlide = this.storyData.find(slide =>
+        this.isValidLocation(slide.location)
+      );
+
+      if (firstValidSlide) {
+        this.flyToSlide(this.storyData.indexOf(firstValidSlide));
+      }
+
       this.updateSlide('none');
     }
   }
@@ -250,8 +259,10 @@ class StoryMap {
     // Create empty active marker layer
     this.createActiveMarker();
 
-    // Move the current slide's marker to active layer
-    this.moveMarkerToActive(this.currentSlideIndex);
+    // Move the current slide's marker to active layer (only if it has valid coordinates)
+    if (this.isValidLocation(this.storyData[this.currentSlideIndex].location)) {
+      this.moveMarkerToActive(this.currentSlideIndex);
+    }
   }
 
   createAllLines() {
@@ -471,8 +482,8 @@ class StoryMap {
       this.moveMarkerToInactive(previousActiveIndex);
     }
 
-    // Move current marker to active layer (if it's not already there)
-    if (this.currentSlideIndex !== previousActiveIndex) {
+    // Move current marker to active layer (if it's not already there and has valid coordinates)
+    if (this.currentSlideIndex !== previousActiveIndex && this.isValidLocation(this.storyData[this.currentSlideIndex].location)) {
       this.moveMarkerToActive(this.currentSlideIndex);
     }
   }
