@@ -125,44 +125,42 @@ const storyMap = new StoryMap({
 });
 ```
 
-### Multi-language Example (Las Rutas-style)
+### Multi-language Example (Multilingual Provider)
 
 ```javascript
+// Using the simplified helper method
+const storyMapConfig = MultilingualDataProvider.createSimpleMultilingualStoryMap({
+    jsonUrl: 'multilingual-story.json',
+    mapContainer: 'map',
+    defaultLanguage: 'en',
+    mapType: 'sentinel2',
+    maintainSlidePosition: true  // Maintain slide position when switching languages
+});
+
+const storyMap = new StoryMap(storyMapConfig);
+
+// Or using the provider directly
+const provider = new MultilingualDataProvider();
 const storyMap = new StoryMap({
-    jsonUrl: 'las-rutas-del-oro-ilegal.json',
-    dataLoader: async (config) => {
-        const response = await fetch(config.jsonUrl);
-        const fullData = await response.json();
+    jsonUrl: 'multilingual-story.json',
+    dataLoader: (config) => provider.loadData(config),
+    mapInitializer: (container, firstSlide) => provider.initializeSentinel2Map(container, firstSlide),
+    mapContainer: 'map',
+    features: provider.getFeaturesConfig(),
+    styling: provider.getStylingConfig()
+});
 
-        // Set up language switching
-        const currentLang = 'en';
-        const slides = fullData.storymaps[currentLang].storymap.slides;
-
-        return slides;
-    },
-    mapInitializer: (container, firstSlide) => {
-        // Sentinel-2 satellite imagery setup
-        return new maplibregl.Map({
-            container: container,
-            style: {
-                version: 8,
-                sources: {
-                    'sentinel2-tiles': {
-                        type: 'raster',
-                        tiles: ['https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/g/{z}/{y}/{x}.jpg'],
-                        minzoom: 0,
-                        maxzoom: 13
-                    }
-                },
-                layers: [{
-                    id: 'sentinel2-layer',
-                    type: 'raster',
-                    source: 'sentinel2-tiles'
-                }]
-            },
-            center: [parseFloat(firstSlide.location.lon), parseFloat(firstSlide.location.lat)],
-            zoom: parseFloat(firstSlide.location.zoom) || 2
-        });
+// Language switching with position maintenance
+const languageSelector = document.getElementById('language-selector');
+languageSelector.addEventListener('change', function() {
+    const result = provider.switchLanguageWithPosition(this.value, storyMap.currentSlideIndex, {
+        maintainSlidePosition: true
+    });
+    if (result) {
+        storyMap.storyData = result.newSlides;
+        storyMap.currentSlideIndex = result.targetSlideIndex;
+        storyMap.recreateMapElements();
+        storyMap.updateSlide();
     }
 });
 ```
@@ -351,8 +349,43 @@ Custom map initialization.
 #### DataProviders.simple(config)
 Load simple JSON data.
 
-#### DataProviders.multilingual(config)
-Load multi-language JSON data.
+#### MultilingualDataProvider
+Generic provider for multilingual story maps with language switching and custom map initialization.
+
+**Configuration Options:**
+- `maintainSlidePosition` (boolean, default: true) - Maintain slide position when switching languages
+
+**Methods:**
+- `switchLanguage(language, options)` - Switch to a different language
+- `switchLanguageWithPosition(language, currentIndex, options)` - Switch language while maintaining slide position
+
+```javascript
+// Simple usage with position maintenance
+const config = MultilingualDataProvider.createSimpleMultilingualStoryMap({
+    jsonUrl: 'story.json',
+    mapType: 'sentinel2',
+    maintainSlidePosition: true  // Stay on current slide when switching languages
+});
+
+// Advanced usage with position control
+const provider = new MultilingualDataProvider();
+const storyMap = new StoryMap({
+    dataLoader: (config) => provider.loadData(config),
+    mapInitializer: (container, firstSlide) => provider.initializeSentinel2Map(container, firstSlide)
+});
+
+// Language switching that maintains slide position
+const result = provider.switchLanguageWithPosition('es', storyMap.currentSlideIndex, {
+    maintainSlidePosition: true  // Default: true
+});
+
+if (result) {
+    storyMap.storyData = result.newSlides;
+    storyMap.currentSlideIndex = result.targetSlideIndex;
+    storyMap.recreateMapElements();
+    storyMap.updateSlide();
+}
+```
 
 #### DataProviders.custom(config)
 Custom data loading logic.

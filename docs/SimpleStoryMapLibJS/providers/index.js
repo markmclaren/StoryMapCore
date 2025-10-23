@@ -24,10 +24,17 @@ import('./media-providers.js').then(module => {
   window.createMedia = module.createMedia;
 });
 
+import('./multilingual-provider.js').then(module => {
+  window.MultilingualDataProvider = module.MultilingualDataProvider;
+  window.createMultilingualProvider = module.createMultilingualProvider;
+  window.loadMultilingualData = module.loadMultilingualData;
+});
+
 // For ES modules (when used in Node.js or modern bundlers)
 export { MapProviders, MapStyles, createMap } from './map-providers.js';
 export { DataProviders, DataValidators, DataTransformers, loadStoryData } from './data-providers.js';
 export { MediaProviders, MediaUtils, MediaValidators, createMedia } from './media-providers.js';
+export { MultilingualDataProvider, createMultilingualProvider, loadMultilingualData } from './multilingual-provider.js';
 
 // Default export with all providers
 import * as MapProviders from './map-providers.js';
