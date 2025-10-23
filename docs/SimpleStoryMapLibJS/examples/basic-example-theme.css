@@ -1,0 +1,51 @@
+.storymap-content {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+.storymap-headline {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Full screen height layout */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+
+  .col-lg-5,
+  .col-md-6 {
+    max-height: 50vh;
+    margin-bottom: 20px;
+  }
+
+  .col-lg-7,
+  .col-md-6:last-child {
+    max-height: 40vh;
+  }
+}
+
+/* Ensure map container takes full height */
+#map {
+  min-height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Content area styling */
+.story-content {
+  padding-right: 10px;
+}
