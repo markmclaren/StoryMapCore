@@ -15,6 +15,7 @@ class StoryMap {
 
       // Map configuration
       mapProvider: config.mapProvider,
+      mapStyle: config.mapStyle,  // Custom style URL option
       mapInitializer: config.mapInitializer,
       mapContainer: config.mapContainer || 'map',
 
@@ -99,6 +100,9 @@ class StoryMap {
         this.config.mapContainer,
         firstValidSlide
       );
+    } else if (this.config.mapStyle && firstValidSlide) {
+      // Use custom style URL
+      this.map = this.initializeMapWithStyle(firstValidSlide);
     } else if (this.config.mapProvider && firstValidSlide) {
       // Use built-in map provider
       this.map = this.initializeMapProvider(firstValidSlide);
@@ -111,16 +115,49 @@ class StoryMap {
   }
 
   initializeMapProvider(firstSlide) {
-    // This will be implemented in Phase 2 with provider utilities
-    // For now, basic maplibregl setup
+    // Handle built-in map providers
+    switch (this.config.mapProvider) {
+      case 'satellite':
+        return MapProviders.satellite({
+          container: this.config.mapContainer,
+          firstSlide: firstSlide
+        });
+
+      case 'pmtiles':
+        return MapProviders.pmtiles({
+          container: this.config.mapContainer,
+          firstSlide: firstSlide,
+          pmtilesUrl: this.config.pmtilesUrl
+        });
+
+      case 'mapbox':
+        return MapProviders.mapbox({
+          container: this.config.mapContainer,
+          firstSlide: firstSlide,
+          accessToken: this.config.accessToken,
+          style: this.config.style
+        });
+
+      case 'standard':
+      default:
+        return MapProviders.standard({
+          container: this.config.mapContainer,
+          firstSlide: firstSlide,
+          style: this.config.style
+        });
+    }
+  }
+
+  initializeMapWithStyle(firstSlide) {
+    // Initialize map with custom style URL
     return new maplibregl.Map({
       container: this.config.mapContainer,
+      style: this.config.mapStyle,
       center: [
         parseFloat(firstSlide.location.lon),
         parseFloat(firstSlide.location.lat)
       ],
-      zoom: parseFloat(firstSlide.location.zoom) || 2,
-      style: 'https://tiles.openfreemap.org/styles/liberty'
+      zoom: parseFloat(firstSlide.location.zoom) || 2
     });
   }
 

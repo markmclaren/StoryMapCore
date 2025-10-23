@@ -120,6 +120,9 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Load the SimpleStoryMapLibJS Map Providers -->
+    <script src="../SimpleStoryMapLibJS/providers/map-providers.js"></script>
+
     <!-- Load the SimpleStoryMapLibJS Core Library -->
     <script src="../SimpleStoryMapLibJS/storymap-core.js"></script>
 
@@ -130,57 +133,73 @@
     <script>
       // Initialize the multilingual story map when the page loads
       document.addEventListener('DOMContentLoaded', function() {
-        // Create StoryMap configuration using the simple helper
-        const storyMapConfig = MultilingualDataProvider.createSimpleMultilingualStoryMap({
-          jsonUrl: 'las-rutas-del-oro-ilegal.json',
-          mapContainer: 'map',
-          defaultLanguage: 'en',
-          mapType: 'sentinel2',
-          maintainSlidePosition: true  // Maintain slide position when switching languages
-        });
+        // Multilingual data loader with language state management
+        const multilingualDataLoader = async (config) => {
+          const provider = new MultilingualDataProvider();
 
-        // Create provider instance for language management
-        const provider = new MultilingualDataProvider();
+          // Load the full multilingual data
+          const fullData = await provider.loadData(config);
 
-        // Initialize language selector first
-        provider.loadData({ jsonUrl: 'las-rutas-del-oro-ilegal.json' })
-          .then(() => {
-            provider.initializeLanguageSelector();
+          // Set up language selector
+          provider.initializeLanguageSelector();
 
-            // Create StoryMap instance with the simplified configuration
-            const storyMap = new StoryMap(storyMapConfig);
+          // Handle language switching
+          const languageSelector = document.getElementById('language-selector');
+          if (languageSelector) {
+            languageSelector.addEventListener('change', function() {
+              const newLanguage = this.value;
+              const currentSlideIndex = storyMap.currentSlideIndex;
 
-            // Handle language switching
-            const languageSelector = document.getElementById('language-selector');
-            if (languageSelector) {
-              languageSelector.addEventListener('change', function() {
-                const newLanguage = this.value;
-                const currentSlideIndex = storyMap.currentSlideIndex;
-
-                // Switch language while maintaining slide position
-                const result = provider.switchLanguageWithPosition(newLanguage, currentSlideIndex, {
-                  maintainSlidePosition: true  // Maintain current slide position
-                });
-
-                if (result && result.newSlides) {
-                  // Update story map with new data
-                  storyMap.storyData = result.newSlides;
-                  storyMap.currentSlideIndex = result.targetSlideIndex;
-
-                  // Clear existing map elements and update
-                  if (storyMap.map) {
-                    storyMap.recreateMapElements();
-                  }
-
-                  // Update the slide
-                  storyMap.updateSlide();
-                }
+              // Switch language while maintaining slide position
+              const result = provider.switchLanguageWithPosition(newLanguage, currentSlideIndex, {
+                maintainSlidePosition: true
               });
-            }
-          })
-          .catch(error => {
-            console.error('Error initializing multilingual story map:', error);
-          });
+
+              if (result && result.newSlides) {
+                // Update story map with new data
+                storyMap.storyData = result.newSlides;
+                storyMap.currentSlideIndex = result.targetSlideIndex;
+
+                // Clear existing map elements and update
+                if (storyMap.map) {
+                  storyMap.recreateMapElements();
+                }
+
+                // Update the slide
+                storyMap.updateSlide();
+              }
+            });
+          }
+
+          return fullData;
+        };
+
+        // Create StoryMap instance using the same pattern as other examples
+        const storyMap = new StoryMap({
+          jsonUrl: 'las-rutas-del-oro-ilegal.json',
+          dataLoader: multilingualDataLoader,
+          mapProvider: 'satellite',  // Use built-in satellite provider (Sentinel-2)
+          mapContainer: 'map',
+          features: {
+            animations: true,
+            keyboardNavigation: true,
+            progressBar: false
+          },
+          styling: {
+            markerRadius: 10,
+            markerRadiusActive: 12,
+            markerColor: "#8C4B00",
+            markerColorActive: "#F29F05",
+            markerStrokeWidth: 2,
+            markerStrokeWidthActive: 2,
+            markerStrokeColor: "#ffffff",
+            lineColor: "#FFFFFF",
+            lineColorActive: "#F29F05",
+            lineWidth: 2,
+            lineWidthActive: 2,
+            lineDasharray: [2, 2]
+          }
+        });
       });
     </script>
   </body>

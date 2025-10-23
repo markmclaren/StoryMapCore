@@ -66,50 +66,7 @@ class MultilingualDataProvider {
     }
   }
 
-  /**
-   * Initialize Sentinel-2 map style
-   */
-  initializeSentinel2Map(container, firstSlide) {
-    const sentinel2Style = {
-      version: 8,
-      sources: {
-        "sentinel2-tiles": {
-          type: "raster",
-          tiles: [
-            "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/g/{z}/{y}/{x}.jpg",
-          ],
-          minzoom: 0,
-          maxzoom: 13,
-          scheme: "xyz",
-          tileSize: 256,
-          attribution:
-            '<a href="https://s2maps.eu">Sentinel-2 cloudless - https://s2maps.eu</a> by <a href="https://eox.at">EOX IT Services GmbH</a> (Contains modified Copernicus Sentinel data 2024)',
-        },
-      },
-      layers: [
-        {
-          id: "sentinel2-layer",
-          type: "raster",
-          source: "sentinel2-tiles",
-          layout: { visibility: "visible" },
-          paint: {
-            "raster-opacity": 1,
-            "raster-fade-duration": 0,
-          },
-        },
-      ],
-    };
 
-    return new maplibregl.Map({
-      container: container,
-      style: sentinel2Style,
-      center: [
-        parseFloat(firstSlide.location.lon),
-        parseFloat(firstSlide.location.lat),
-      ],
-      zoom: parseFloat(firstSlide.location.zoom) || 2,
-    });
-  }
 
   /**
    * Initialize language selector dropdown
@@ -270,6 +227,7 @@ class MultilingualDataProvider {
 
   /**
    * Create a simple multilingual story map with minimal configuration
+   * @deprecated Use the standard StoryMap constructor with mapProvider instead
    */
   static createSimpleMultilingualStoryMap(config) {
     const {
@@ -280,25 +238,16 @@ class MultilingualDataProvider {
       maintainSlidePosition = true  // Maintain slide position when switching languages
     } = config;
 
+    // Determine map provider based on mapType
+    const mapProvider = mapType === 'sentinel2' ? 'satellite' : 'standard';
+
     return {
       jsonUrl,
       dataLoader: (loadConfig) => {
         const provider = new MultilingualDataProvider();
         return provider.loadData({ ...loadConfig, defaultLanguage });
       },
-      mapInitializer: (container, firstSlide) => {
-        if (mapType === 'sentinel2') {
-          return new MultilingualDataProvider().initializeSentinel2Map(container, firstSlide);
-        } else {
-          // Standard map initialization
-          return new maplibregl.Map({
-            container: container,
-            style: 'https://demotiles.maplibre.org/style.json',
-            center: [parseFloat(firstSlide.location.lon), parseFloat(firstSlide.location.lat)],
-            zoom: parseFloat(firstSlide.location.zoom) || 2
-          });
-        }
-      },
+      mapProvider: mapProvider,
       mapContainer,
       features: new MultilingualDataProvider().getFeaturesConfig(),
       styling: new MultilingualDataProvider().getStylingConfig()

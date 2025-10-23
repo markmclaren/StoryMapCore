@@ -128,39 +128,71 @@ const storyMap = new StoryMap({
 ### Multi-language Example (Multilingual Provider)
 
 ```javascript
-// Using the simplified helper method
-const storyMapConfig = MultilingualDataProvider.createSimpleMultilingualStoryMap({
-    jsonUrl: 'multilingual-story.json',
-    mapContainer: 'map',
-    defaultLanguage: 'en',
-    mapType: 'sentinel2',
-    maintainSlidePosition: true  // Maintain slide position when switching languages
-});
+// Multilingual data loader with language state management
+const multilingualDataLoader = async (config) => {
+    const provider = new MultilingualDataProvider();
 
-const storyMap = new StoryMap(storyMapConfig);
+    // Load the full multilingual data
+    const fullData = await provider.loadData(config);
 
-// Or using the provider directly
-const provider = new MultilingualDataProvider();
+    // Set up language selector
+    provider.initializeLanguageSelector();
+
+    // Handle language switching
+    const languageSelector = document.getElementById('language-selector');
+    if (languageSelector) {
+        languageSelector.addEventListener('change', function() {
+            const newLanguage = this.value;
+            const currentSlideIndex = storyMap.currentSlideIndex;
+
+            // Switch language while maintaining slide position
+            const result = provider.switchLanguageWithPosition(newLanguage, currentSlideIndex, {
+                maintainSlidePosition: true
+            });
+
+            if (result && result.newSlides) {
+                // Update story map with new data
+                storyMap.storyData = result.newSlides;
+                storyMap.currentSlideIndex = result.targetSlideIndex;
+
+                // Clear existing map elements and update
+                if (storyMap.map) {
+                    storyMap.recreateMapElements();
+                }
+
+                // Update the slide
+                storyMap.updateSlide();
+            }
+        });
+    }
+
+    return fullData;
+};
+
+// Create StoryMap instance using the same pattern as other examples
 const storyMap = new StoryMap({
     jsonUrl: 'multilingual-story.json',
-    dataLoader: (config) => provider.loadData(config),
-    mapInitializer: (container, firstSlide) => provider.initializeSentinel2Map(container, firstSlide),
+    dataLoader: multilingualDataLoader,
+    mapProvider: 'satellite',  // Use built-in satellite provider (Sentinel-2)
     mapContainer: 'map',
-    features: provider.getFeaturesConfig(),
-    styling: provider.getStylingConfig()
-});
-
-// Language switching with position maintenance
-const languageSelector = document.getElementById('language-selector');
-languageSelector.addEventListener('change', function() {
-    const result = provider.switchLanguageWithPosition(this.value, storyMap.currentSlideIndex, {
-        maintainSlidePosition: true
-    });
-    if (result) {
-        storyMap.storyData = result.newSlides;
-        storyMap.currentSlideIndex = result.targetSlideIndex;
-        storyMap.recreateMapElements();
-        storyMap.updateSlide();
+    features: {
+        animations: true,
+        keyboardNavigation: true,
+        progressBar: false
+    },
+    styling: {
+        markerRadius: 10,
+        markerRadiusActive: 12,
+        markerColor: "#8C4B00",
+        markerColorActive: "#F29F05",
+        markerStrokeWidth: 2,
+        markerStrokeWidthActive: 2,
+        markerStrokeColor: "#ffffff",
+        lineColor: "#FFFFFF",
+        lineColorActive: "#F29F05",
+        lineWidth: 2,
+        lineWidthActive: 2,
+        lineDasharray: [2, 2]
     }
 });
 ```
@@ -210,6 +242,14 @@ const storyMap = new StoryMap({
 const storyMap = new StoryMap({
     jsonUrl: 'story.json',
     mapProvider: 'satellite' // Uses Sentinel-2 imagery
+});
+```
+
+### Custom Style URL
+```javascript
+const storyMap = new StoryMap({
+    jsonUrl: 'story.json',
+    mapStyle: 'https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/g/{z}/{y}/{x}.jpg' // Custom style URL
 });
 ```
 
@@ -311,6 +351,7 @@ The library is fully responsive and includes:
 | `jsonUrl` | string | - | URL to JSON data file |
 | `dataLoader` | function | - | Custom data loading function |
 | `mapProvider` | string | - | Map provider ('standard', 'pmtiles', 'satellite', 'mapbox') |
+| `mapStyle` | string | - | Custom map style URL (alternative to mapProvider) |
 | `mapInitializer` | function | - | Custom map initialization function |
 | `features` | object | - | Feature toggles |
 | `styling` | object | - | Style customizations |
@@ -360,31 +401,52 @@ Generic provider for multilingual story maps with language switching and custom 
 - `switchLanguageWithPosition(language, currentIndex, options)` - Switch language while maintaining slide position
 
 ```javascript
-// Simple usage with position maintenance
-const config = MultilingualDataProvider.createSimpleMultilingualStoryMap({
-    jsonUrl: 'story.json',
-    mapType: 'sentinel2',
-    maintainSlidePosition: true  // Stay on current slide when switching languages
-});
-
-// Advanced usage with position control
-const provider = new MultilingualDataProvider();
+// Recommended approach - follows same pattern as other examples
 const storyMap = new StoryMap({
-    dataLoader: (config) => provider.loadData(config),
-    mapInitializer: (container, firstSlide) => provider.initializeSentinel2Map(container, firstSlide)
+    jsonUrl: 'multilingual-story.json',
+    dataLoader: async (config) => {
+        const provider = new MultilingualDataProvider();
+        const fullData = await provider.loadData(config);
+        provider.initializeLanguageSelector();
+        return fullData;
+    },
+    mapProvider: 'satellite',  // Use built-in satellite provider (Sentinel-2)
+    features: {
+        animations: true,
+        keyboardNavigation: true,
+        progressBar: false
+    },
+    styling: {
+        markerRadius: 10,
+        markerRadiusActive: 12,
+        markerColor: "#8C4B00",
+        markerColorActive: "#F29F05",
+        markerStrokeWidth: 2,
+        markerStrokeWidthActive: 2,
+        markerStrokeColor: "#ffffff",
+        lineColor: "#FFFFFF",
+        lineColorActive: "#F29F05",
+        lineWidth: 2,
+        lineWidthActive: 2,
+        lineDasharray: [2, 2]
+    }
 });
 
 // Language switching that maintains slide position
-const result = provider.switchLanguageWithPosition('es', storyMap.currentSlideIndex, {
-    maintainSlidePosition: true  // Default: true
-});
+const languageSelector = document.getElementById('language-selector');
+languageSelector.addEventListener('change', function() {
+    const provider = new MultilingualDataProvider();
+    const result = provider.switchLanguageWithPosition(this.value, storyMap.currentSlideIndex, {
+        maintainSlidePosition: true
+    });
 
-if (result) {
-    storyMap.storyData = result.newSlides;
-    storyMap.currentSlideIndex = result.targetSlideIndex;
-    storyMap.recreateMapElements();
-    storyMap.updateSlide();
-}
+    if (result) {
+        storyMap.storyData = result.newSlides;
+        storyMap.currentSlideIndex = result.targetSlideIndex;
+        storyMap.recreateMapElements();
+        storyMap.updateSlide();
+    }
+});
 ```
 
 #### DataProviders.custom(config)
