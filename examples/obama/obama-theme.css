@@ -14,31 +14,6 @@
 }
 
 /* Enhanced content styling */
-.storymap-content {
-  position: relative;
-}
-
-.storymap-content::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: radial-gradient(
-      circle at 20% 50%,
-      rgba(30, 64, 175, 0.05) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 80% 20%,
-      rgba(59, 130, 246, 0.05) 0%,
-      transparent 50%
-    );
-  pointer-events: none;
-  z-index: 0;
-}
-
 .story-content {
   position: relative;
   z-index: 1;
@@ -145,30 +120,6 @@
   font-size: 1.1em;
 }
 
-/* Mobile optimizations */
-@media (max-width: 767px) {
-  .storymap-content {
-    padding: 20px !important;
-  }
-
-  .storymap-text {
-    padding: 15px;
-    margin: 15px 0;
-  }
-
-  .storymap-media:not(:empty) {
-    padding: 10px;
-    margin: 15px 0;
-  }
-
-  .storymap-headline {
-    font-size: 1.8rem !important;
-  }
-
-  .storymap-navigation {
-    padding: 10px 0;
-  }
-}
 
 /* Full screen height layout */
 html,
@@ -176,28 +127,6 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
-
-  .container-fluid {
-    padding: 0;
-  }
-
-  .col-lg-5,
-  .col-md-6 {
-    max-height: 50vh;
-    margin-bottom: 20px;
-  }
-
-  .col-lg-7,
-  .col-md-6:last-child {
-    max-height: 40vh;
-  }
 }
 
 /* Ensure map container takes full height */

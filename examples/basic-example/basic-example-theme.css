@@ -1,36 +1,9 @@
-.storymap-content {
-}
-.storymap-headline {
-}
-
 /* Full screen height layout */
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
-
-  .container-fluid {
-    padding: 0;
-  }
-
-  .col-lg-5,
-  .col-md-6 {
-    max-height: 50vh;
-    margin-bottom: 20px;
-  }
-
-  .col-lg-7,
-  .col-md-6:last-child {
-    max-height: 40vh;
-  }
 }
 
 /* Ensure map container takes full height */
