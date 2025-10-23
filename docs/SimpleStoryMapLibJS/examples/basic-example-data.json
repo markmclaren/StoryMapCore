@@ -12,6 +12,12 @@
                     "caption": "SimpleStoryMapLibJS in action",
                     "credit": "SimpleStoryMapLibJS Demo"
                 },
+                "location": {
+                    "lat": 40.7128,
+                    "lon": -74.0060,
+                    "zoom": 12,
+                    "line": true
+                },
                 "background": {
                     "color": "#f8fafc",
                     "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop",
