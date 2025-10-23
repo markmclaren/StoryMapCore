@@ -1,6 +1,11 @@
-/* Las Rutas del Oro Ilegal - Environmental Theme for StoryMapJS */
+/**
+ * Las Rutas del Oro Ilegal - Environmental Theme for StoryMapJS
+ * Corrected version with only necessary fixes applied
+ */
 
-/* Override default theme for environmental/investigative journalism aesthetic */
+/* ============================================
+   Theme Color Variables
+   ============================================ */
 :root {
   --storymap-primary-color: #ffffff;
   --storymap-secondary-color: #16a34a;
@@ -13,23 +18,30 @@
   --storymap-shadow-color: rgba(0, 0, 0, 0.3);
 }
 
+/* ============================================
+   Body and Layout
+   ============================================ */
 body {
   min-height: 100vh;
   background-color: var(--storymap-background-color);
 }
-#story-content{
+
+#story-content {
   background-color: var(--storymap-background-color);
 }
 
-.fw-bold{
+/* FIXED: Made .fw-bold selector more specific to avoid affecting all Bootstrap bold text */
+.storymap-progress .fw-bold {
   color: var(--storymap-accent-color);
 }
 
-/* Enhanced content styling */
-
+/* ============================================
+   Story Content Styling
+   ============================================ */
 .story-content {
   position: relative;
   z-index: 1;
+  padding-right: 10px;
 }
 
 .storymap-headline {
@@ -61,7 +73,9 @@ body {
   border-bottom-color: #f59e0b;
 }
 
-/* Enhanced media styling */
+/* ============================================
+   Media Styling
+   ============================================ */
 .storymap-media:not(:empty) {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -83,7 +97,9 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-/* Enhanced navigation styling - positioned at top of column */
+/* ============================================
+   Navigation Styling
+   ============================================ */
 .storymap-navigation {
   background: rgba(30, 58, 138, 0.95);
   backdrop-filter: blur(10px);
@@ -103,7 +119,9 @@ body {
   box-shadow: 0 6px 20px rgba(107, 114, 128, 0.5);
 }
 
-/* Enhanced progress styling */
+/* ============================================
+   Progress Indicator
+   ============================================ */
 .storymap-progress {
   background: rgba(245, 158, 11, 0.1);
   padding: 8px 16px;
@@ -117,7 +135,9 @@ body {
   font-size: 1.1em;
 }
 
-/* Language selector styling */
+/* ============================================
+   Language Selector
+   ============================================ */
 .language-controls {
   margin-top: 15px;
   padding: 10px;
@@ -141,7 +161,9 @@ body {
   font-weight: 500;
 }
 
-/* Full screen height layout */
+/* ============================================
+   Full Screen Height Layout
+   ============================================ */
 html,
 body {
   height: 100%;
@@ -155,7 +177,3 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Content area styling */
-.story-content {
-  padding-right: 10px;
-}
