@@ -11,7 +11,7 @@ A flexible, customizable story map library that extracts the best patterns from 
 - **Multiple Map Providers**: PMTiles, Standard tiles, Satellite imagery, Mapbox
 - **Multi-language Support**: Built-in internationalization
 - **Responsive Design**: Works on all devices
-- **Theme System**: Extensive theming with CSS custom properties
+- **Customizable Styling**: Easy CSS customization with custom.css files
 - **No Build Step Required**: Pure JavaScript, works everywhere
 - **CDN Ready**: Easy distribution via npm or CDN
 
@@ -187,49 +187,6 @@ const storyMap = new StoryMap({
 });
 ```
 
-## 🎨 Theming
-
-### Built-in Themes
-
-```javascript
-// Apply a built-in theme
-import { themeBuilder } from 'storymapjs/themes';
-
-themeBuilder.applyTheme('dark');
-themeBuilder.applyTheme('blue');
-themeBuilder.applyTheme('green');
-themeBuilder.applyTheme('purple');
-```
-
-### Custom Themes
-
-```javascript
-// Create a custom theme
-const customTheme = themeBuilder.createTheme('my-brand', 'default', {
-    colors: {
-        primary: '#123456',
-        accent: '#789abc',
-        background: '#f0f0f0'
-    },
-    typography: {
-        fontFamily: '"My Brand Font", sans-serif'
-    }
-});
-
-themeBuilder.applyTheme('my-brand');
-```
-
-### CSS Custom Properties
-
-Override any theme variable:
-
-```css
-:root {
-    --storymap-accent-color: #your-brand-color;
-    --storymap-font-family: "Your Font", sans-serif;
-    --storymap-border-radius: 12px;
-}
-```
 
 ## 🗺️ Map Providers
 

@@ -91,7 +91,7 @@ StoryMapJS/
 │   └── media-providers.js    # Media handling utilities
 ├── themes/
 │   ├── base-theme.css        # Core responsive styles
-│   └── theme-builder.js      # CSS custom property generator
+│   └── custom.css           # Simple CSS customization
 └── examples/
     ├── aryas-journey/        # Existing examples as configs
     ├── obama/
@@ -190,7 +190,7 @@ MapProviders.custom = (config) => {
    - Core functionality extracted and reusable
    - Utility functions for common patterns
    - Configuration-driven customization
-   - Theme system using CSS custom properties
+   - Simple CSS customization with custom properties
 
 ### Implementation Strategy
 
@@ -319,7 +319,7 @@ The implementation can be done incrementally, with each phase improving maintain
 - [x] Create map provider utilities (PMTiles, Standard, Satellite)
 - [x] Create data provider utilities (Simple, Multi-language)
 - [x] Create media provider utilities (YouTube, Images)
-- [x] Implement theme system with CSS custom properties
+- [x] Implement simple CSS customization system
 
 ### Phase 3: Packaging & Distribution ✅
 - [x] Set up NPM package structure
@@ -344,10 +344,10 @@ The **Flexibility-First Architecture (Option 2)** has been successfully implemen
 - **Media Providers**: YouTube, Images, Videos, Audio, Custom
 - **Loose utilities** - not rigid plugins, maximum flexibility
 
-### ✅ **Theme System** (`themes/`)
-- **CSS Custom Properties** for complete theming control
-- **Built-in themes**: Default, Dark, Blue, Green, Purple
-- **Theme Builder API** for creating custom themes
+### ✅ **Simple CSS System** (`themes/`)
+- **CSS Custom Properties** for easy customization
+- **Base responsive styles** for consistent layout
+- **Simple custom.css approach** for user styling
 - **Responsive design** with accessibility features
 
 ### ✅ **Updated Examples** (`docs/`)
@@ -408,9 +408,8 @@ StoryMapJS/
 │   ├── media-providers.js    # Media utilities
 │   └── index.js              # Provider exports
 ├── themes/
-│   ├── base-theme.css        # Theme variables
-│   ├── theme-builder.js      # Theme creation
-│   └── index.js              # Theme exports
+│   ├── base-theme.css        # Core responsive styles
+│   └── custom.css           # Simple CSS customization
 ├── examples/
 │   ├── basic-example.html    # Demo example
 │   └── basic-example-data.json
@@ -421,23 +420,23 @@ StoryMapJS/
 docs/
 ├── aryas-journey/
 │   ├── index.html            # Updated with new library
-│   ├── aryas-journey-theme.css # Separate theme file
-│   └── improved-styles.css   # Enhanced Game of Thrones theme
+│   ├── aryas-journey-theme.css # Separate custom CSS file
+│   └── improved-styles.css   # Enhanced Game of Thrones styling
 ├── obama/
 │   ├── index.html            # Updated with new library
-│   ├── obama-theme.css        # Separate theme file
-│   └── improved-styles.css   # Enhanced presidential theme
+│   ├── obama-theme.css        # Separate custom CSS file
+│   └── improved-styles.css   # Enhanced presidential styling
 └── las-rutas-del-oro-ilegal/
     ├── index.html            # Updated with new library
-    ├── las-rutas-theme.css     # Separate theme file
-    └── improved-styles.css   # Enhanced environmental theme
+    ├── las-rutas-theme.css     # Separate custom CSS file
+    └── improved-styles.css   # Enhanced environmental styling
 ```
 
 ## ✅ **User Requested Changes - COMPLETED**
 
 ### 🎨 **Separate CSS Files**
 - ✅ Removed all inline CSS from HTML files
-- ✅ Created separate theme CSS files for each example:
+- ✅ Created separate custom CSS files for each example:
   - `aryas-journey-theme.css` - Game of Thrones styling
   - `obama-theme.css` - Presidential styling
   - `las-rutas-theme.css` - Environmental journalism styling

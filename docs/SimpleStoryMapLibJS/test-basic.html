@@ -106,7 +106,6 @@
         <div class="test-controls">
             <button onclick="runTests()">Run Tests</button>
             <button onclick="testNavigation()">Test Navigation</button>
-            <button onclick="testTheme()">Test Theme</button>
             <button onclick="resetStory()">Reset Story</button>
         </div>
 
@@ -331,18 +330,7 @@
             });
         }
 
-        function testTheme() {
-            // Test theme switching
-            if (window.themeBuilder) {
-                themeBuilder.applyTheme('dark');
-                setTimeout(() => {
-                    themeBuilder.applyTheme('default');
-                    addTestResult('Theme System', true, 'Theme switching works');
-                }, 1000);
-            } else {
-                addTestResult('Theme System', false, 'Theme builder not available');
-            }
-        }
+
 
         function resetStory() {
             if (storyMap) {
@@ -380,7 +368,6 @@
                 addTestResult('Manual Navigation', true, 'Manual navigation test completed');
             }
         };
-        window.testTheme = testTheme;
         window.resetStory = resetStory;
     </script>
 </body>

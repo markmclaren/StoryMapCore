@@ -10,7 +10,6 @@
     "storymap-core.js",
     "storymap-core.css",
     "providers/",
-    "themes/",
     "examples/",
     "README.md",
     "LICENSE",
@@ -49,8 +48,8 @@
     "build:examples": "echo 'Copying examples...'",
     "dev": "npm run serve:examples",
     "serve:examples": "npx http-server examples -p 3000 -o",
-    "lint": "eslint storymap-core.js providers/ themes/",
-    "lint:fix": "eslint storymap-core.js providers/ themes/ --fix",
+    "lint": "eslint storymap-core.js providers/",
+    "lint:fix": "eslint storymap-core.js providers/ --fix",
     "test": "echo 'Tests would go here'",
     "docs": "echo 'Documentation would be generated here'",
     "prepublishOnly": "npm run build && npm run lint",
@@ -88,18 +87,11 @@
       "require": "./providers/index.js",
       "types": "./types/providers.d.ts"
     },
-    "./themes": {
-      "import": "./themes/index.js",
-      "require": "./themes/index.js",
-      "types": "./types/themes.d.ts"
-    },
-    "./css": "./storymap-core.css",
-    "./base-theme.css": "./themes/base-theme.css"
+    "./css": "./storymap-core.css"
   },
   "cdn": {
     "js": "https://cdn.jsdelivr.net/npm/simplestorymaplibjs@1.0.0/storymap-core.js",
-    "css": "https://cdn.jsdelivr.net/npm/simplestorymaplibjs@1.0.0/storymap-core.css",
-    "themes": "https://cdn.jsdelivr.net/npm/simplestorymaplibjs@1.0.0/themes/"
+    "css": "https://cdn.jsdelivr.net/npm/simplestorymaplibjs@1.0.0/storymap-core.css"
   },
   "funding": {
     "type": "individual",
