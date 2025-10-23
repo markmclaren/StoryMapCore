@@ -2,23 +2,14 @@
 
 /* Override default theme for Game of Thrones aesthetic */
 :root {
-  --storymap-primary-color: #e9ecef;
+  --storymap-primary-color: #ffffff;
   --storymap-secondary-color: #cccccc;
-  --storymap-accent-color: #334155;
-  --storymap-background-color: #1a1a1a;
-  --storymap-text-color: #e9ecef;
+  --storymap-accent-color: #ff6b35;
+  --storymap-background-color: #121619;
+  --storymap-text-color: #ffffff;
   --storymap-text-muted: #999999;
   --storymap-border-color: #333333;
   --storymap-shadow-color: rgba(0, 0, 0, 0.5);
-}
-
-.btn-primary {
-  --bs-btn-color: var(--storymap-primary-color);
-  --bs-btn-bg: var(--storymap-accent-color);
-}
-
-.btn-primary:hover {
-  --bs-btn-bg: var(--storymap-accent-color-hover);
 }
 
 /* Enhanced content styling */
