@@ -1,11 +1,6 @@
 .storymap-content {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 .storymap-headline {
-  background: linear-gradient(135deg, #3b82f6, #1e40af);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 /* Full screen height layout */

@@ -15,7 +15,6 @@
 
 /* Enhanced content styling */
 .storymap-content {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
   position: relative;
 }
 
@@ -46,13 +45,7 @@
 }
 
 .storymap-headline {
-  background: linear-gradient(135deg, #1e40af, #3b82f6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   font-weight: 700;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-  letter-spacing: 0.5px;
 }
 
 .storymap-text {
@@ -113,7 +106,6 @@
 }
 
 .nav-button {
-  background: linear-gradient(135deg, #1e40af, #3b82f6) !important;
   border: 2px solid #1e40af !important;
   color: #ffffff !important;
   font-weight: 700 !important;
@@ -124,20 +116,17 @@
 }
 
 .nav-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #3b82f6, #1e40af) !important;
   border-color: #3b82f6 !important;
   box-shadow: 0 6px 20px rgba(30, 64, 175, 0.4);
   transform: translateY(-2px);
 }
 
 #restart-btn {
-  background: linear-gradient(135deg, #6b7280, #9ca3af) !important;
   border-color: #9ca3af !important;
   color: #ffffff !important;
 }
 
 #restart-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
   border-color: #6b7280 !important;
   box-shadow: 0 6px 20px rgba(107, 114, 128, 0.4);
 }

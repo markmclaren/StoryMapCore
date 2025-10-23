@@ -13,8 +13,11 @@
 }
 
 /* Enhanced content styling */
+body {
+  min-height: 100vh;
+  background-color: var(--storymap-background-color);
+}
 .storymap-content {
-  background: linear-gradient(135deg, #121619 0%, #1a1f2e 100%) !important;
   position: relative;
 }
 
@@ -118,20 +121,17 @@
 }
 
 .nav-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #ff8c42, #ff6b35) !important;
   border-color: #ff8c42 !important;
   box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
   transform: translateY(-2px);
 }
 
 #restart-btn {
-  background: linear-gradient(135deg, #333333, #555555) !important;
   border-color: #666666 !important;
   color: #ffffff !important;
 }
 
 #restart-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #555555, #333333) !important;
   border-color: #888888 !important;
   box-shadow: 0 6px 20px rgba(85, 85, 85, 0.5);
 }

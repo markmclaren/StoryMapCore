@@ -2,10 +2,10 @@
 
 /* Override default theme for environmental/investigative journalism aesthetic */
 :root {
-  --storymap-primary-color: #166534;
+  --storymap-primary-color: #ffffff;
   --storymap-secondary-color: #16a34a;
   --storymap-accent-color: #f59e0b;
-  --storymap-background-color: #1e3a8a;
+  --storymap-background-color: #080D40;
   --storymap-surface-color: rgba(255, 255, 255, 0.95);
   --storymap-text-color: #ffffff;
   --storymap-text-muted: #e2e8f0;
@@ -13,9 +13,20 @@
   --storymap-shadow-color: rgba(0, 0, 0, 0.3);
 }
 
+body {
+  min-height: 100vh;
+  background-color: var(--storymap-background-color);
+}
+#story-content{
+  background-color: var(--storymap-background-color);
+}
+
+.fw-bold{
+  color: var(--storymap-accent-color);
+}
+
 /* Enhanced content styling */
 .storymap-content {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%) !important;
   position: relative;
 }
 
@@ -46,13 +57,7 @@
 }
 
 .storymap-headline {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  letter-spacing: 1px;
 }
 
 .storymap-text {
@@ -113,7 +118,6 @@
 }
 
 .nav-button {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24) !important;
   border: 2px solid #f59e0b !important;
   color: #1f2937 !important;
   font-weight: 700 !important;
@@ -124,20 +128,17 @@
 }
 
 .nav-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
   border-color: #fbbf24 !important;
   box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
   transform: translateY(-2px);
 }
 
 #restart-btn {
-  background: linear-gradient(135deg, #6b7280, #9ca3af) !important;
   border-color: #9ca3af !important;
   color: #ffffff !important;
 }
 
 #restart-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #9ca3af, #6b7280) !important;
   border-color: #6b7280 !important;
   box-shadow: 0 6px 20px rgba(107, 114, 128, 0.5);
 }
