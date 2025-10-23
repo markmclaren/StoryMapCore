@@ -8,6 +8,13 @@
                     "headline": "A month in the life of President Obama",
                     "text": "September 2013: events taken from the WhiteHouse.gov site."
                 },
+                "location": {
+                    "name": "Washington, DC",
+                    "lon": "-77.036061",
+                    "zoom": 10,
+                    "lat": "38.903057",
+                    "line": true
+                },
                 "media": {
                     "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/President_Barack_Obama.jpg/500px-President_Barack_Obama.jpg",
                     "credit": "wikipedia",

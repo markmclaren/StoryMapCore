@@ -107,7 +107,7 @@
 }
 
 /* Media container */
-.storymap-media {
+.storymap-media:not(:empty) {
   margin: 1.5rem 0;
   border-radius: 8px;
   overflow: hidden;
@@ -116,6 +116,7 @@
 .storymap-media iframe {
   border: none;
   border-radius: 8px;
+  min-height: 300px;
 }
 
 .storymap-media img {
@@ -240,20 +241,6 @@
 
   .storymap-headline {
     font-size: 1.3rem;
-  }
-}
-
-/* Dark theme support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --storymap-primary-color: #ffffff;
-    --storymap-secondary-color: #cccccc;
-    --storymap-background-color: #1a1a1a;
-    --storymap-text-color: #ffffff;
-  }
-
-  .storymap-content {
-    background: var(--storymap-background-color);
   }
 }
 
