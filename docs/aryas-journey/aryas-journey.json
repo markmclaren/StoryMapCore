@@ -8,7 +8,10 @@
                     "credit": ""
                 },
                 "location": {
+                    "lat": 81.22826656005543,
                     "line": true,
+                    "lon": -131.923828125,
+                    "zoom": 4,
                     "icon": "https://maps.gstatic.com/intl/en_us/mapfiles/ms/micons/blue-pushpin.png"
                 },
                 "background": {

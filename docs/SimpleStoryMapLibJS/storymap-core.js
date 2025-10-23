@@ -19,6 +19,11 @@ class StoryMap {
       mapInitializer: config.mapInitializer,
       mapContainer: config.mapContainer || 'map',
 
+      // Provider-specific configuration
+      pmtilesUrl: config.pmtilesUrl,
+      accessToken: config.accessToken,
+      style: config.style,
+
       // UI configuration
       features: {
         animations: config.features?.animations !== false,

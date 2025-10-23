@@ -36,13 +36,23 @@ const MapProviders = {
     const firstSlide = config.firstSlide || { location: { lon: 0, lat: 0, zoom: 2 } };
 
     // Set up PMTiles protocol if not already done
-    if (!maplibregl.getProtocol('pmtiles')) {
+    if (!maplibregl.pmtilesProtocol) {
       const protocol = new pmtiles.Protocol();
       maplibregl.addProtocol('pmtiles', protocol.tile);
+      // Store the protocol instance for adding PMTiles files
+      maplibregl.pmtilesProtocol = protocol;
     }
 
     // Handle PMTiles URL
     const pmtilesUrl = config.pmtilesUrl || config.tilesUrl || 'data.pmtiles';
+
+    // Load the PMTiles file and add it to the protocol
+    const p = new pmtiles.PMTiles(pmtilesUrl);
+    const protocol = maplibregl.pmtilesProtocol;
+    if (protocol && protocol.add) {
+      protocol.add(p);
+    }
+
     let styleUrl;
 
     if (pmtilesUrl.startsWith('pmtiles://')) {

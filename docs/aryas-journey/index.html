@@ -19,6 +19,9 @@
     <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
     <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
 
+    <!-- SimpleStoryMapLibJS Map Providers -->
+    <script src="../SimpleStoryMapLibJS/providers/map-providers.js"></script>
+
     <!-- SimpleStoryMapLibJS Library -->
     <script src="../SimpleStoryMapLibJS/storymap-core.js"></script>
 
@@ -119,43 +122,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-      // Initialize SimpleStoryMapLibJS with PMTiles configuration (Arya's Journey style)
+      // Initialize SimpleStoryMapLibJS with PMTiles configuration using built-in provider
       const storyMap = new StoryMap({
         jsonUrl: 'aryas-journey.json',
-        mapInitializer: (container, firstSlide) => {
-          // Custom PMTiles setup (extracted from original app.js)
-          const protocol = new pmtiles.Protocol();
-          maplibregl.addProtocol("pmtiles", protocol.tile);
-
-          const PMTILES_URL = "aryas-journey.pmtiles";
-          const p = new pmtiles.PMTiles(PMTILES_URL);
-          protocol.add(p);
-
-          return new maplibregl.Map({
-            container: container,
-            zoom: 2,
-            center: [0, 0],
-            renderWorldCopies: false,
-            minZoom: 0,
-            maxZoom: 14,
-            style: {
-              version: 8,
-              sources: {
-                storymap: {
-                  type: "raster",
-                  url: `pmtiles://${PMTILES_URL}`,
-                },
-              },
-              layers: [
-                {
-                  id: "pmtiles-layer",
-                  source: "storymap",
-                  type: "raster",
-                },
-              ],
-            },
-          });
-        },
+        mapProvider: 'pmtiles',
+        pmtilesUrl: 'aryas-journey.pmtiles',
         features: {
           animations: true,
           keyboardNavigation: true,
