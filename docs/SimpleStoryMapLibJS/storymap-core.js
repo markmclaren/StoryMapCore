@@ -748,20 +748,6 @@ class StoryMap {
     if (!overlay) {
       overlay = document.createElement('div');
       overlay.className = 'story-bg-image-overlay';
-      Object.assign(overlay.style, {
-        position: 'absolute',
-        top: '0',
-        left: '0',
-        width: '100%',
-        height: '100%',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        pointerEvents: 'none',
-        zIndex: '0',
-        opacity: '1',
-        transition: 'opacity 0.3s ease, background-image 0.3s ease'
-      });
       container.insertBefore(overlay, container.firstChild);
     }
 

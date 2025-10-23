@@ -56,9 +56,13 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.story-content {
+#story-content, .story-content {
   position: relative;
+}
+ 
+.story-content {
   min-height: 300px;
+  z-index: 1;
 }
 
 #content-wrapper {
@@ -137,6 +141,7 @@
 /* Navigation controls - now using Bootstrap buttons */
 .storymap-navigation {
   margin-bottom: 1rem;
+  z-index: 2;
 }
 
 /* Progress indicator */
