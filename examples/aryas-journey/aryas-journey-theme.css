@@ -16,6 +16,7 @@
 body {
   min-height: 100vh;
   background-color: var(--storymap-background-color);
+  overflow: hidden;
 }
 
 .storymap-headline {
@@ -127,18 +128,33 @@ body {
   position: relative;
   padding-right: 10px;
   z-index: 1;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  
 }
 
-/* Background image overlay styling */
-.story-bg-image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 0;
-  pointer-events: none;
+/* Content wrapper with scrolling */
+#content-wrapper {
+  flex: 1;
+  overflow-y: hidden;
+  overflow-x: hidden; /* Prevent horizontal scrollbars */
+  padding-right: 10px; /* Add padding to account for scrollbar */
+  margin-right: -10px; /* Negative margin to maintain layout */
+  position: relative; /* Ensure animations are contained */
+}
+
+/* Dynamic scrollbar class - applied when content overflows */
+#content-wrapper.has-scrollbar {
+  overflow-y: auto;
+}
+
+/* Ensure slide animations don't cause horizontal overflow */
+.slide-out-left,
+.slide-out-right,
+.slide-in-left,
+.slide-in-right {
+  transform-origin: center;
+  will-change: transform;
+  backface-visibility: hidden;
 }

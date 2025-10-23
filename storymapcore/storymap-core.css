@@ -157,18 +157,22 @@
 /* Slide animations */
 .slide-out-left {
   animation: slideOutLeft var(--storymap-slide-transition-duration) var(--storymap-slide-transition-easing);
+  overflow: hidden; /* Prevent horizontal overflow during animation */
 }
 
 .slide-out-right {
   animation: slideOutRight var(--storymap-slide-transition-duration) var(--storymap-slide-transition-easing);
+  overflow: hidden; /* Prevent horizontal overflow during animation */
 }
 
 .slide-in-left {
   animation: slideInLeft var(--storymap-slide-transition-duration) var(--storymap-slide-transition-easing);
+  overflow: hidden; /* Prevent horizontal overflow during animation */
 }
 
 .slide-in-right {
   animation: slideInRight var(--storymap-slide-transition-duration) var(--storymap-slide-transition-easing);
+  overflow: hidden; /* Prevent horizontal overflow during animation */
 }
 
 @keyframes slideOutLeft {
@@ -228,4 +232,18 @@
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
+}
+
+/* Background image overlay styling */
+.story-bg-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
 }
