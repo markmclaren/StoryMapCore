@@ -1,0 +1,17 @@
+/* Basic Example Theme for StoryMapJS */
+
+/* Default theme colors */
+:root {
+  --storymap-primary-color: #333333;
+  --storymap-secondary-color: #666666;
+  --storymap-accent-color: #3b82f6;
+  --storymap-accent-color-hover: #1d4ed8;
+  --storymap-background-color: #ffffff;
+  --storymap-surface-color: #ffffff;
+  --storymap-text-color: #333333;
+  --storymap-text-muted: #999999;
+  --storymap-border-color: #e2e8f0;
+  --storymap-button-background-color: #3b82f6;
+  --storymap-button-background-color-hover: #1d4ed8;
+  --storymap-button-text-color: #ffffff;   
+}

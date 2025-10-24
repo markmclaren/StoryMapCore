@@ -8,17 +8,6 @@
    CSS Custom Properties for theming
    ============================================ */
 :root {
-  /* Color variables */
-  --storymap-primary-color: #333333;
-  --storymap-secondary-color: #666666;
-  --storymap-accent-color: #ff0000;
-  --storymap-accent-color-hover: #cc0000;
-  --storymap-background-color: #ffffff;
-  --storymap-surface-color: #ffffff;
-  --storymap-text-color: #333333;
-  --storymap-text-muted: #999999;
-  --storymap-border-color: #e0e0e0;
-  --storymap-shadow-color: rgba(0, 0, 0, 0.1);
   --storymap-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Layout variables */
@@ -33,11 +22,27 @@
   --storymap-marker-size: 10px;
   --storymap-marker-size-active: 12px;
   --storymap-line-width: 2px;
+
+  /* Enhanced styling variables */
+  --storymap-backdrop-blur: 10px;
+  --storymap-border-radius: 12px;
+  --storymap-media-border-radius: 8px;
+  --storymap-progress-border-radius: 20px;
+  --storymap-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --storymap-box-shadow-subtle: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --storymap-transition: all 0.3s ease;
+
 }
 
 /* ============================================
    Base Layout
    ============================================ */
+body {
+  min-height: 100vh;
+  background-color: var(--storymap-background-color);
+  overflow: hidden;
+}
+
 .storymap-container {
   font-family: var(--storymap-font-family);
   color: var(--storymap-text-color);
@@ -68,17 +73,40 @@
    ============================================ */
 #story-content {
   position: relative;
+  background-color: var(--storymap-background-color);
 }
 
 .story-content {
   position: relative;
-  min-height: 300px;
+  padding-right: 10px;
   z-index: 1;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
 }
 
 #content-wrapper {
-  position: relative;
-  z-index: 1;
+  flex: 1;
+  overflow-y: hidden;
+  overflow-x: hidden; /* Prevent horizontal scrollbars */
+  padding-right: 10px; /* Add padding to account for scrollbar */
+  margin-right: -10px; /* Negative margin to maintain layout */
+  position: relative; /* Ensure animations are contained */
+}
+
+/* Dynamic scrollbar class - applied when content overflows */
+#content-wrapper.has-scrollbar {
+  overflow-y: auto;
+}
+
+/* Ensure slide animations don't cause horizontal overflow */
+.slide-out-left,
+.slide-out-right,
+.slide-in-left,
+.slide-in-right {
+  transform-origin: center;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* ============================================
@@ -92,11 +120,31 @@
   line-height: 1.2;
 }
 
+.storymap-navigation {
+  background: var(--storymap-surface-color);
+  backdrop-filter: blur(var(--storymap-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--storymap-backdrop-blur));
+  border-radius: var(--storymap-border-radius);
+  border: 1px solid var(--storymap-border-color);
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+  box-shadow: var(--storymap-box-shadow-subtle);
+}
+
 .storymap-text {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin: 0;
-  color: var(--storymap-secondary-color);
+  background: var(--storymap-surface-color);
+  backdrop-filter: blur(var(--storymap-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--storymap-backdrop-blur));
+  padding: 20px;
+  border-radius: var(--storymap-border-radius);
+  border: 1px solid var(--storymap-border-color);
+  color: var(--storymap-text-color);
+  line-height: 1.8;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--storymap-box-shadow-subtle);
 }
 
 .storymap-text h1,
@@ -117,32 +165,42 @@
 .storymap-text a {
   color: var(--storymap-accent-color);
   text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: var(--storymap-transition);
 }
 
 .storymap-text a:hover {
-  text-decoration: underline;
+  color: var(--storymap-accent-color-hover);
+  border-bottom-color: var(--storymap-accent-color);
 }
 
 /* ============================================
    Media Container
    ============================================ */
 .storymap-media:not(:empty) {
-  margin: 1.5rem 0;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.storymap-media iframe {
-  border: none;
-  border-radius: 8px;
-  min-height: 300px;
+  background: var(--storymap-surface-color);
+  backdrop-filter: blur(var(--storymap-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--storymap-backdrop-blur));
+  padding: 15px;
+  border-radius: var(--storymap-border-radius);
+  border: 1px solid var(--storymap-border-color);
+  margin: 20px 0;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--storymap-box-shadow-subtle);
 }
 
 .storymap-media img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  display: block;
+  object-fit: contain;
+  max-height: 270px;
+  border-radius: var(--storymap-media-border-radius);
+  box-shadow: var(--storymap-box-shadow);
+}
+
+.storymap-media iframe {
+  min-height: 40vh;
+  border-radius: var(--storymap-media-border-radius);
+  box-shadow: var(--storymap-box-shadow);
 }
 
 .media-caption {
@@ -154,17 +212,15 @@
 }
 
 /* ============================================
-   Navigation Controls
-   ============================================ */
-.storymap-navigation {
-  margin-bottom: 1rem;
-  z-index: 2;
-}
-
-/* ============================================
    Progress Indicator
    ============================================ */
 .storymap-progress {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(var(--storymap-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--storymap-backdrop-blur));
+  padding: 8px 16px;
+  border-radius: var(--storymap-progress-border-radius);
+  border: 1px solid var(--storymap-border-color);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -174,8 +230,38 @@
 }
 
 #progress {
+  color: var(--storymap-accent-color);
   font-weight: 700;
-  color: var(--storymap-primary-color);
+  font-size: 1.1em;
+}
+
+/* ============================================
+   Language Controls
+   ============================================ */
+.language-controls {
+  margin-top: 15px;
+  padding: 10px;
+  background: var(--storymap-surface-color);
+  backdrop-filter: blur(var(--storymap-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--storymap-backdrop-blur));
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid var(--storymap-border-color);
+}
+
+.language-controls label {
+  color: var(--storymap-text-color);
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.language-controls select {
+  padding: 8px 12px;
+  border: 1px solid var(--storymap-border-color);
+  border-radius: 4px;
+  background: var(--storymap-surface-color);
+  color: var(--storymap-text-color);
+  font-weight: 500;
 }
 
 /* ============================================
@@ -290,3 +376,42 @@
   pointer-events: none;
 }
 
+/**
+ * StoryMapCore Bootstrap Customizations
+ * Unified navigation button styles using CSS custom properties
+ */
+
+.btn-primary {
+  --bs-btn-color: var(--storymap-button-text-color);
+  --bs-btn-bg: var(--storymap-button-background-color);
+  --bs-btn-border-color: var(--storymap-button-background-color);
+  color: var(--storymap-button-text-color);
+  background-color: var(--storymap-button-background-color);
+  border-color: var(--storymap-button-background-color);
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  --bs-btn-color: var(--storymap-button-text-color);
+  --bs-btn-bg: var(--storymap-button-background-color-hover);
+  --bs-btn-border-color: var(--storymap-button-background-color-hover);
+  --bs-btn-active-color: var(--storymap-button-text-color);
+  --bs-btn-active-bg: var(--storymap-button-background-color-hover);
+  --bs-btn-active-border-color: var(--storymap-button-background-color-hover);
+  color: var(--storymap-button-text-color);
+  background-color: var(--storymap-button-background-color-hover);
+  border-color: var(--storymap-button-background-color-hover);
+}
+
+.btn-primary:disabled,
+.btn-primary.disabled {
+  --bs-btn-color: var(--storymap-button-text-color);
+  --bs-btn-bg: var(--storymap-button-background-color-hover);
+  --bs-btn-border-color: var(--storymap-button-background-color-hover);
+  color: var(--storymap-button-text-color);
+  background-color: var(--storymap-button-background-color-hover);
+  border-color: var(--storymap-button-background-color-hover);
+  opacity: 0.6;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}

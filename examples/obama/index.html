@@ -8,12 +8,13 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Obama Theme CSS -->
+    <link rel="stylesheet" href="obama-theme.css" />
+
     <!-- StoryMapCore Core CSS -->
     <link rel="stylesheet" href="../../storymapcore/storymap-core.css" />
 
-    <!-- Obama Theme CSS -->
-    <link rel="stylesheet" href="obama-theme.css" />
-    <link rel="stylesheet" href="../../storymapcore/storymap-bootstrap.css" />
+    <!-- Bootstrap CSS already included above -->
 
     <!-- Dependencies -->
     <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
@@ -33,11 +34,11 @@
         <!-- Content Area -->
         <div id="story-content" class="col-md-6 p-4 d-flex flex-column">
           <!-- Navigation -->
-          <div class="d-flex justify-content-between align-items-center mb-3 flex-shrink-0">
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-shrink-0 storymap-navigation">
             <div>
-              <button id="prev-btn" class="btn btn-secondary me-2">Previous</button>
+              <button id="prev-btn" class="btn btn-primary me-2">Previous</button>
               <button id="next-btn" class="btn btn-primary me-2">Next</button>
-              <button id="restart-btn" class="btn btn-outline-secondary">Restart</button>
+              <button id="restart-btn" class="btn btn-primary">Restart</button>
             </div>
             <div>
               <span id="progress" class="fw-bold"></span>
